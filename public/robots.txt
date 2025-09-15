@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://yourwebsite.com/sitemap.xml
+
+# Crawl-delay (optional)
+Crawl-delay: 1
+
+# Disallow certain paths (if needed)
+Disallow: /api/
+Disallow: /temp/
+Disallow: /_next/
+Disallow: /404
+Disallow: /500
