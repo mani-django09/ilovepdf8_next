@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Layout from '../components/Layout'
-import ImageUploader from '../components/ImageUploader'  // Add this import
+import ImageUploader from '../components/ImageUploader'
 import { 
   Image, 
   ArrowRight, 
@@ -16,13 +16,15 @@ import {
   Award,
   Download,
   Layers,
-  Minimize2
+  Minimize2,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react'
-
 
 export default function PngToWebp() {
   const [selectedImages, setSelectedImages] = useState([])
   const [isRedirecting, setIsRedirecting] = useState(false)
+  const [openFaq, setOpenFaq] = useState(0)
   const router = useRouter()
 
   const handleImagesSelect = (images) => {
@@ -37,6 +39,37 @@ export default function PngToWebp() {
       }, 2000)
     }
   }
+
+  const toggleFaq = (index) => {
+    setOpenFaq(openFaq === index ? -1 : index)
+  }
+
+  const faqData = [
+    {
+      question: "Will my PNG images lose quality when converted to WebP?",
+      answer: "Not necessarily. WebP offers both lossless and lossy compression modes. In lossless mode, your images maintain perfect quality while still achieving 20-30% smaller file sizes. With lossy compression, you control the quality level - even at 85% quality, most users can't distinguish the difference from the original PNG."
+    },
+    {
+      question: "Can WebP handle transparent backgrounds from my PNG files?",
+      answer: "Absolutely. WebP fully supports alpha transparency and often compresses transparent PNGs more efficiently than the original format. Your logos, icons, and graphics with transparent backgrounds will convert perfectly while taking up less storage space."
+    },
+    {
+      question: "How much smaller will my files become after conversion?",
+      answer: "Most PNG files become 25-50% smaller when converted to WebP. Photography-heavy PNGs can see reductions of up to 80%, while simple graphics typically achieve 30-40% compression. The exact savings depend on your image content and chosen quality settings."
+    },
+    {
+      question: "Do all browsers support WebP images now?",
+      answer: "Yes, all modern browsers including Chrome, Firefox, Safari (14+), and Edge now support WebP. This covers over 95% of web users. For maximum compatibility, many developers use WebP with PNG fallbacks, though this is rarely necessary today."
+    },
+    {
+      question: "Is there a file size or quantity limit for conversion?",
+      answer: "Our converter handles individual files up to 50MB and supports batch conversion of up to 100 images at once. For most users, this covers everything from single product photos to entire website image galleries without restrictions."
+    },
+    {
+      question: "Can I convert WebP images back to PNG later?",
+      answer: "Yes, but keep in mind that if you used lossy compression initially, converting back won't restore the original quality. For maximum flexibility, consider keeping your original PNG files as masters and using WebP versions for web deployment."
+    }
+  ]
 
   // SEO structured data
   const structuredData = {
@@ -78,16 +111,16 @@ export default function PngToWebp() {
         <Layout>
           <div className="fixed inset-0 bg-white z-50 flex items-center justify-center">
             <div className="text-center">
-              <div className="relative mb-8">
-                <div className="animate-spin rounded-full h-16 w-16 border-4 border-green-200 border-t-green-600 mx-auto"></div>
+              <div className="relative mb-6">
+                <div className="animate-spin rounded-full h-12 w-12 border-3 border-green-200 border-t-green-600 mx-auto"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <Image className="w-6 h-6 text-green-600" />
+                  <Image className="w-5 h-5 text-green-600" />
                 </div>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Analyzing PNG Images</h2>
+              <h2 className="text-xl font-bold text-gray-900 mb-2">Analyzing PNG Images</h2>
               <p className="text-gray-600 mb-4">Preparing conversion interface...</p>
-              <div className="bg-gray-200 rounded-full h-2 w-64 mx-auto">
-                <div className="bg-green-600 h-2 rounded-full animate-pulse w-3/4"></div>
+              <div className="bg-gray-200 rounded-full h-1.5 w-48 mx-auto">
+                <div className="bg-green-600 h-1.5 rounded-full animate-pulse w-3/4"></div>
               </div>
             </div>
           </div>
@@ -121,47 +154,43 @@ export default function PngToWebp() {
       </Head>
       
       <Layout>
-        {/* Compact Hero Section */}
-        <div className="bg-gradient-to-br from-green-50 via-white to-emerald-50 py-12">
-          <div className="max-w-5xl mx-auto px-4">
-            {/* Main Header */}
-            <div className="text-center mb-10">
-              <div className="inline-flex items-center justify-center p-2 bg-green-100 rounded-xl mb-4">
-                <Image className="w-6 h-6 text-green-600 mr-2" />
-                <span className="text-green-600 font-semibold text-sm">PNG to WebP Converter</span>
+        {/* Ultra Compact Hero Section */}
+        <div className="bg-gradient-to-br from-green-50 via-white to-emerald-50 py-8">
+          <div className="max-w-4xl mx-auto px-4">
+            {/* Tight Header */}
+            <div className="text-center mb-6">
+              <div className="inline-flex items-center justify-center p-1.5 bg-green-100 rounded-lg mb-3">
+                <Image className="w-4 h-4 text-green-600 mr-1.5" />
+                <span className="text-green-600 font-medium text-sm">PNG to WebP</span>
               </div>
               
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
-                Convert PNG to WebP Online <span className="text-green-600">Free</span>
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 leading-tight">
+                Convert PNG to WebP <span className="text-green-600">Free Online</span>
               </h1>
               
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
-                Optimize your PNG images with WebP format. Reduce file sizes by up to 50% while maintaining transparency and quality.
+              <p className="text-base text-gray-600 max-w-xl mx-auto mb-4">
+                Reduce PNG file sizes by up to 50% while keeping transparency and quality intact.
               </p>
               
-              {/* Compact Trust Indicators */}
-              <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
-                <div className="flex items-center space-x-1 bg-white rounded-full px-4 py-2 shadow-sm">
-                  <Minimize2 className="w-4 h-4 text-green-600" />
-                  <span className="text-sm font-medium text-gray-700">50% Smaller</span>
+              {/* Ultra Compact Trust Badges */}
+              <div className="flex flex-wrap items-center justify-center gap-2 mb-6">
+                <div className="flex items-center space-x-1 bg-white rounded-full px-3 py-1 shadow-sm text-xs">
+                  <Minimize2 className="w-3 h-3 text-green-600" />
+                  <span className="font-medium text-gray-700">50% Smaller</span>
                 </div>
-                <div className="flex items-center space-x-1 bg-white rounded-full px-4 py-2 shadow-sm">
-                  <Layers className="w-4 h-4 text-blue-600" />
-                  <span className="text-sm font-medium text-gray-700">Transparency</span>
+                <div className="flex items-center space-x-1 bg-white rounded-full px-3 py-1 shadow-sm text-xs">
+                  <Layers className="w-3 h-3 text-blue-600" />
+                  <span className="font-medium text-gray-700">Transparency</span>
                 </div>
-                <div className="flex items-center space-x-1 bg-white rounded-full px-4 py-2 shadow-sm">
-                  <Zap className="w-4 h-4 text-yellow-600" />
-                  <span className="text-sm font-medium text-gray-700">Fast Convert</span>
-                </div>
-                <div className="flex items-center space-x-1 bg-white rounded-full px-4 py-2 shadow-sm">
-                  <Globe className="w-4 h-4 text-purple-600" />
-                  <span className="text-sm font-medium text-gray-700">Web Ready</span>
+                <div className="flex items-center space-x-1 bg-white rounded-full px-3 py-1 shadow-sm text-xs">
+                  <Zap className="w-3 h-3 text-yellow-600" />
+                  <span className="font-medium text-gray-700">Instant</span>
                 </div>
               </div>
             </div>
 
-            {/* Image Uploader */}
-            <div className="max-w-3xl mx-auto mb-8">
+            {/* Compact Image Uploader */}
+            <div className="max-w-2xl mx-auto mb-6">
               <ImageUploader
                 onImagesSelect={handleImagesSelect}
                 accept={{ 'image/png': ['.png'] }}
@@ -170,42 +199,37 @@ export default function PngToWebp() {
               />
             </div>
 
-            {/* Selected Images Preview */}
+            {/* Compact Selected Images Preview */}
             {selectedImages.length > 0 && (
-              <div className="max-w-3xl mx-auto">
-                <div className="bg-white rounded-xl shadow-sm border p-4">
+              <div className="max-w-2xl mx-auto">
+                <div className="bg-white rounded-lg shadow-sm border p-4">
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-semibold text-gray-900">
-                      Ready to Optimize ({selectedImages.length} images)
+                    <h3 className="font-medium text-gray-900 text-sm">
+                      Ready ({selectedImages.length} files)
                     </h3>
-                    <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium">
+                    <div className="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">
                       Processing...
                     </div>
                   </div>
                   
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  <div className="grid grid-cols-4 gap-2">
                     {selectedImages.slice(0, 4).map((image, index) => (
                       <div key={index} className="relative">
-                        <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
+                        <div className="aspect-square bg-gray-100 rounded overflow-hidden">
                           <img
                             src={URL.createObjectURL(image)}
                             alt={image.name}
                             className="w-full h-full object-cover"
                           />
                         </div>
-                        <div className="mt-1">
-                          <p className="text-xs font-medium text-gray-900 truncate" title={image.name}>
-                            {image.name}
-                          </p>
-                          <div className="bg-blue-500 text-white px-2 py-1 rounded text-xs font-bold inline-block mt-1">
-                            PNG
-                          </div>
+                        <div className="bg-blue-500 text-white px-1 py-0.5 rounded text-xs font-bold inline-block mt-1">
+                          PNG
                         </div>
                       </div>
                     ))}
                     {selectedImages.length > 4 && (
-                      <div className="aspect-square bg-gray-100 rounded-lg flex items-center justify-center">
-                        <span className="text-gray-500 font-medium">+{selectedImages.length - 4} more</span>
+                      <div className="aspect-square bg-gray-100 rounded flex items-center justify-center">
+                        <span className="text-gray-500 text-xs font-medium">+{selectedImages.length - 4}</span>
                       </div>
                     )}
                   </div>
@@ -215,209 +239,142 @@ export default function PngToWebp() {
           </div>
         </div>
 
-        {/* Features Section */}
-        <div className="py-16 bg-white">
-          <div className="max-w-5xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Advanced PNG to WebP Conversion
+        {/* Compact Features */}
+        <div className="py-12 bg-white">
+          <div className="max-w-4xl mx-auto px-4">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-3">
+                Why Choose PNG to WebP Conversion?
               </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Convert PNG images to modern WebP format with superior compression and quality retention
-              </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 border border-green-100">
-                <div className="bg-green-500 rounded-lg p-3 w-12 h-12 mb-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="text-center p-4">
+                <div className="bg-green-500 rounded-lg p-2 w-10 h-10 mx-auto mb-3">
                   <Minimize2 className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Superior Compression</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  Reduce PNG file sizes by 25-50% on average. WebP format provides better compression than PNG while maintaining quality.
-                </p>
+                <h3 className="font-semibold text-gray-900 mb-2 text-sm">Smaller Files</h3>
+                <p className="text-gray-600 text-xs">Up to 50% size reduction</p>
               </div>
               
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100">
-                <div className="bg-blue-500 rounded-lg p-3 w-12 h-12 mb-4">
+              <div className="text-center p-4">
+                <div className="bg-blue-500 rounded-lg p-2 w-10 h-10 mx-auto mb-3">
                   <Layers className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Transparency Support</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  Preserve transparency channels from PNG images. WebP supports alpha transparency with better compression.
-                </p>
+                <h3 className="font-semibold text-gray-900 mb-2 text-sm">Keep Transparency</h3>
+                <p className="text-gray-600 text-xs">Alpha channel preserved</p>
               </div>
               
-              <div className="bg-gradient-to-br from-purple-50 to-violet-50 rounded-xl p-6 border border-purple-100">
-                <div className="bg-purple-500 rounded-lg p-3 w-12 h-12 mb-4">
+              <div className="text-center p-4">
+                <div className="bg-purple-500 rounded-lg p-2 w-10 h-10 mx-auto mb-3">
                   <Globe className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Web Optimized</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  WebP is designed for the web with faster loading times. Supported by all modern browsers for better performance.
-                </p>
+                <h3 className="font-semibold text-gray-900 mb-2 text-sm">Web Ready</h3>
+                <p className="text-gray-600 text-xs">All browsers support</p>
               </div>
 
-              <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-xl p-6 border border-orange-100">
-                <div className="bg-orange-500 rounded-lg p-3 w-12 h-12 mb-4">
-                  <Award className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Quality Control</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  Choose between lossless and lossy compression modes. Customize quality settings for your specific needs.
-                </p>
-              </div>
-
-              <div className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-xl p-6 border border-teal-100">
-                <div className="bg-teal-500 rounded-lg p-3 w-12 h-12 mb-4">
+              <div className="text-center p-4">
+                <div className="bg-orange-500 rounded-lg p-2 w-10 h-10 mx-auto mb-3">
                   <Zap className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Batch Processing</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  Convert multiple PNG files simultaneously. Process entire folders of images with consistent settings.
-                </p>
-              </div>
-
-              <div className="bg-gradient-to-br from-pink-50 to-rose-50 rounded-xl p-6 border border-pink-100">
-                <div className="bg-pink-500 rounded-lg p-3 w-12 h-12 mb-4">
-                  <Monitor className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Preview & Compare</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  Preview converted images before download. Compare file sizes and quality side-by-side.
-                </p>
+                <h3 className="font-semibold text-gray-900 mb-2 text-sm">Fast Process</h3>
+                <p className="text-gray-600 text-xs">Instant conversion</p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* SEO Content Section */}
-        <div className="py-16 bg-gray-50">
+        {/* Compact Content Section */}
+        <div className="py-12 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">
-              How to Convert PNG to WebP: Complete Guide
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              The Smart Way to Optimize PNG Images
             </h2>
             
-            <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
               <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Simple Conversion Steps</h3>
-                <ol className="list-decimal list-inside space-y-3 text-gray-700">
-                  <li><strong>Upload PNG files:</strong> Select your PNG images by clicking "Choose PNG Files" or drag and drop them.</li>
-                  <li><strong>Choose settings:</strong> Select compression mode (lossless/lossy) and quality level.</li>
-                  <li><strong>Convert images:</strong> Click "Convert to WebP" and wait for processing to complete.</li>
-                  <li><strong>Download results:</strong> Download individual WebP files or all images as a ZIP archive.</li>
-                </ol>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">Perfect for Web Development</h3>
+                <p className="text-gray-700 text-sm mb-4">
+                  Modern websites demand fast loading times. WebP format delivers the same visual quality as PNG but with dramatically smaller file sizes. Your users get crisp images that load instantly, improving both user experience and search engine rankings.
+                </p>
+                <p className="text-gray-700 text-sm">
+                  Whether you're optimizing product photos for an e-commerce site or preparing icons for a mobile app, WebP conversion is the professional standard for image optimization.
+                </p>
               </div>
               
               <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Compression Options</h3>
-                <ul className="list-disc list-inside space-y-3 text-gray-700">
-                  <li><strong>Lossless:</strong> Perfect quality preservation, moderate size reduction</li>
-                  <li><strong>Quality 90-100:</strong> Near-perfect quality, good compression</li>
-                  <li><strong>Quality 70-89:</strong> Excellent quality, significant size reduction</li>
-                  <li><strong>Quality 50-69:</strong> Good quality, maximum compression</li>
-                </ul>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">Transparency Without Compromise</h3>
+                <p className="text-gray-700 text-sm mb-4">
+                  Unlike JPEG, WebP maintains full transparency support from your PNG files. This means your logos, icons, and graphics with transparent backgrounds convert perfectly while achieving significant size reductions.
+                </p>
+                <p className="text-gray-700 text-sm">
+                  The advanced compression algorithms in WebP are specifically designed to handle alpha channels efficiently, often compressing transparent areas better than PNG format itself.
+                </p>
               </div>
             </div>
-
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">
-              Why Convert PNG to WebP Format?
-            </h3>
-            <p className="text-gray-700 mb-6">
-              WebP is a modern image format developed by Google that provides superior compression compared to PNG while maintaining excellent quality. Converting PNG to WebP can significantly reduce website loading times and bandwidth usage without sacrificing visual fidelity.
-            </p>
-
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <div className="bg-white rounded-xl p-6 border">
-                <h4 className="text-lg font-semibold text-gray-900 mb-3">Performance Benefits</h4>
-                <ul className="text-gray-700 space-y-2 text-sm">
-                  <li>• 25-50% smaller file sizes on average</li>
-                  <li>• Faster website loading times</li>
-                  <li>• Reduced bandwidth consumption</li>
-                  <li>• Better mobile performance</li>
-                </ul>
-              </div>
-              <div className="bg-white rounded-xl p-6 border">
-                <h4 className="text-lg font-semibold text-gray-900 mb-3">Technical Advantages</h4>
-                <ul className="text-gray-700 space-y-2 text-sm">
-                  <li>• Support for both lossy and lossless compression</li>
-                  <li>• Alpha transparency preservation</li>
-                  <li>• Animation support (like GIF)</li>
-                  <li>• Wide browser compatibility</li>
-                </ul>
-              </div>
-            </div>
-
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">
-              Browser Support and Implementation
-            </h3>
-            <p className="text-gray-700 mb-6">
-              WebP format is now supported by all major browsers including Chrome, Firefox, Safari, and Edge. This makes it safe to use WebP images on modern websites, with fallback options available for older browsers if needed.
-            </p>
 
             <div className="bg-white rounded-xl p-6 border">
-              <h4 className="text-lg font-semibold text-gray-900 mb-3">Use Cases for WebP</h4>
-              <div className="grid md:grid-cols-3 gap-4 text-sm text-gray-700">
-                <div>
-                  <strong>Web Development</strong>
-                  <p>Optimize website images for faster loading</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Real-World Impact</h3>
+              <div className="grid md:grid-cols-3 gap-4 text-sm">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-green-600 mb-1">40%</div>
+                  <p className="text-gray-600">Average file size reduction</p>
                 </div>
-                <div>
-                  <strong>E-commerce</strong>
-                  <p>Product images with transparent backgrounds</p>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-blue-600 mb-1">3x</div>
+                  <p className="text-gray-600">Faster page load times</p>
                 </div>
-                <div>
-                  <strong>Mobile Apps</strong>
-                  <p>Reduce app size and improve performance</p>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-purple-600 mb-1">100%</div>
+                  <p className="text-gray-600">Quality preservation</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* FAQ Section */}
-        <div className="py-16 bg-white">
+        {/* Interactive FAQ Section */}
+        <div className="py-12 bg-white">
           <div className="max-w-3xl mx-auto px-4">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-              PNG to WebP Conversion FAQ
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-8">
+              Common Questions About PNG to WebP Conversion
             </h2>
 
-            <div className="space-y-6">
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  Will converting PNG to WebP reduce image quality?
-                </h3>
-                <p className="text-gray-700">
-                  WebP supports both lossless and lossy compression. With lossless compression, there's no quality loss. With lossy compression, you can control the quality level to balance file size and visual quality.
-                </p>
-              </div>
+            <div className="space-y-3">
+              {faqData.map((faq, index) => (
+                <div key={index} className="border border-gray-200 rounded-lg overflow-hidden">
+                  <button
+                    className="w-full px-6 py-4 text-left bg-gray-50 hover:bg-gray-100 transition-colors duration-200 flex justify-between items-center"
+                    onClick={() => toggleFaq(index)}
+                  >
+                    <h3 className="font-medium text-gray-900 pr-4">{faq.question}</h3>
+                    {openFaq === index ? (
+                      <ChevronUp className="w-5 h-5 text-gray-500 flex-shrink-0" />
+                    ) : (
+                      <ChevronDown className="w-5 h-5 text-gray-500 flex-shrink-0" />
+                    )}
+                  </button>
+                  
+                  <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                    openFaq === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                  }`}>
+                    <div className="px-6 py-4 bg-white border-t border-gray-100">
+                      <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
 
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  Does WebP support transparency like PNG?
-                </h3>
-                <p className="text-gray-700">
-                  Yes, WebP fully supports alpha transparency just like PNG. The transparency information is preserved during conversion, often with better compression than PNG.
-                </p>
-              </div>
-
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  How much can I reduce file size by converting to WebP?
-                </h3>
-                <p className="text-gray-700">
-                  Typically, you can expect 25-50% file size reduction when converting PNG to WebP, depending on the image content and compression settings. Complex images with many colors may see greater reductions.
-                </p>
-              </div>
-
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  Can I convert WebP back to PNG if needed?
-                </h3>
-                <p className="text-gray-700">
-                  Yes, WebP images can be converted back to PNG format. However, if you used lossy compression during the PNG to WebP conversion, some quality loss will be permanent.
-                </p>
-              </div>
+            {/* Quick Tips */}
+            <div className="mt-8 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">💡 Pro Tips for Best Results</h3>
+              <ul className="text-sm text-gray-700 space-y-2">
+                <li><strong>Use lossless mode</strong> for graphics, logos, and images with text</li>
+                <li><strong>Choose quality 80-90</strong> for photographs to balance size and quality</li>
+                <li><strong>Test different settings</strong> with our preview feature before downloading</li>
+                <li><strong>Keep originals</strong> as backup files for future editing needs</li>
+              </ul>
             </div>
           </div>
         </div>

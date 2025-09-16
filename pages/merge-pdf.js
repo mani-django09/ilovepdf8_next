@@ -21,12 +21,16 @@ import {
   Smartphone,
   Monitor,
   Award,
-  Infinity
+  Infinity,
+  ChevronDown,
+  ChevronUp,
+  AlertCircle
 } from 'lucide-react'
 
 export default function MergePdf() {
   const [selectedFiles, setSelectedFiles] = useState([])
   const [isRedirecting, setIsRedirecting] = useState(false)
+  const [openFaq, setOpenFaq] = useState(null)
   const router = useRouter()
 
   const handleFilesSelect = (files) => {
@@ -40,6 +44,10 @@ export default function MergePdf() {
         router.push('/merge-pdf/preview')
       }, 2000)
     }
+  }
+
+  const toggleFaq = (index) => {
+    setOpenFaq(openFaq === index ? null : index)
   }
 
   // SEO structured data
@@ -73,6 +81,33 @@ export default function MergePdf() {
     }
   }
 
+  const faqData = [
+    {
+      question: "Is my data secure when merging PDFs online?",
+      answer: "Absolutely. We implement military-grade 256-bit SSL encryption for all file transfers. Your PDFs are processed on secure servers and automatically purged within one hour. We never access, store, or share your documents with third parties."
+    },
+    {
+      question: "How many PDFs can I combine in one go?",
+      answer: "Our system handles unlimited PDF files without restrictions. Whether you're merging 2 documents or 200, the process remains fast and efficient. Each individual file can be up to 100MB, with no total size limit for your merged output."
+    },
+    {
+      question: "Will merging affect my document quality?",
+      answer: "Never. Our advanced processing engine maintains 100% original quality. All fonts, images, vector graphics, and formatting remain pixel-perfect. We preserve metadata, bookmarks, and document properties from your source files."
+    },
+    {
+      question: "Do I need to create an account or pay fees?",
+      answer: "No account required, no hidden costs. This tool is genuinely free forever. We don't limit usage, add watermarks, or require subscriptions. Professional results without the professional price tag."
+    },
+    {
+      question: "Can I merge password-protected PDFs?",
+      answer: "Currently, encrypted PDFs need password removal before merging. This security measure ensures we can't accidentally bypass document protection. Use your PDF reader to remove passwords, then merge freely."
+    },
+    {
+      question: "Which devices and browsers work with this tool?",
+      answer: "Every modern device works perfectly - Windows PCs, Macs, iPads, Android tablets, and smartphones. Chrome, Safari, Firefox, Edge, and other browsers all supported. No downloads or plugins required."
+    }
+  ]
+
   // Loading overlay during redirect
   if (isRedirecting) {
     return (
@@ -83,17 +118,14 @@ export default function MergePdf() {
         <Layout>
           <div className="fixed inset-0 bg-white z-50 flex items-center justify-center">
             <div className="text-center">
-              <div className="relative mb-8">
-                <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-200 border-t-blue-600 mx-auto"></div>
+              <div className="relative mb-6">
+                <div className="animate-spin rounded-full h-12 w-12 border-3 border-blue-200 border-t-blue-600 mx-auto"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <Merge className="w-6 h-6 text-blue-600" />
+                  <Merge className="w-5 h-5 text-blue-600" />
                 </div>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Analyzing Your PDFs</h2>
-              <p className="text-gray-600 mb-4">Preparing merge preview interface...</p>
-              <div className="bg-gray-200 rounded-full h-2 w-64 mx-auto">
-                <div className="bg-blue-600 h-2 rounded-full animate-pulse w-3/4"></div>
-              </div>
+              <h2 className="text-xl font-bold text-gray-900 mb-2">Processing Your PDFs</h2>
+              <p className="text-gray-600 text-sm">Setting up merge preview...</p>
             </div>
           </div>
         </Layout>
@@ -138,45 +170,42 @@ export default function MergePdf() {
       </Head>
       
       <Layout>
-        {/* Compact Hero Section */}
-        <div className="bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-12">
-          <div className="max-w-5xl mx-auto px-4">
-            {/* Main Header */}
-            <div className="text-center mb-10">
-              <div className="inline-flex items-center justify-center p-2 bg-blue-100 rounded-xl mb-4">
-              </div>
-              
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
-                Merge PDF Files Online <span className="text-blue-600">Free</span>
+        {/* Ultra Compact Hero Section */}
+        <div className="bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-8">
+          <div className="max-w-4xl mx-auto px-4">
+            {/* Tight Header */}
+            <div className="text-center mb-6">
+              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3 leading-tight">
+                Merge PDF Files <span className="text-blue-600">Instantly</span>
               </h1>
               
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
-                Combine multiple PDF documents into one professional file. Fast, secure, and completely free with no registration required.
+              <p className="text-gray-600 max-w-xl mx-auto mb-4">
+                Combine multiple PDFs into one document. Secure, fast, and completely free.
               </p>
               
-              {/* Compact Trust Indicators */}
-              <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
-                <div className="flex items-center space-x-1 bg-white rounded-full px-4 py-2 shadow-sm">
-                  <CheckCircle className="w-4 h-4 text-green-600" />
-                  <span className="text-sm font-medium text-gray-700">100% Free</span>
+              {/* Ultra Compact Trust Badges */}
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <div className="flex items-center space-x-1 bg-white rounded-full px-3 py-1 shadow-sm text-xs">
+                  <CheckCircle className="w-3 h-3 text-green-600" />
+                  <span className="font-medium text-gray-700">Free</span>
                 </div>
-                <div className="flex items-center space-x-1 bg-white rounded-full px-4 py-2 shadow-sm">
-                  <Shield className="w-4 h-4 text-blue-600" />
-                  <span className="text-sm font-medium text-gray-700">Secure</span>
+                <div className="flex items-center space-x-1 bg-white rounded-full px-3 py-1 shadow-sm text-xs">
+                  <Shield className="w-3 h-3 text-blue-600" />
+                  <span className="font-medium text-gray-700">Secure</span>
                 </div>
-                <div className="flex items-center space-x-1 bg-white rounded-full px-4 py-2 shadow-sm">
-                  <Zap className="w-4 h-4 text-yellow-600" />
-                  <span className="text-sm font-medium text-gray-700">Instant</span>
+                <div className="flex items-center space-x-1 bg-white rounded-full px-3 py-1 shadow-sm text-xs">
+                  <Zap className="w-3 h-3 text-yellow-600" />
+                  <span className="font-medium text-gray-700">Fast</span>
                 </div>
-                <div className="flex items-center space-x-1 bg-white rounded-full px-4 py-2 shadow-sm">
-                  <Globe className="w-4 h-4 text-purple-600" />
-                  <span className="text-sm font-medium text-gray-700">Any Device</span>
+                <div className="flex items-center space-x-1 bg-white rounded-full px-3 py-1 shadow-sm text-xs">
+                  <Globe className="w-3 h-3 text-purple-600" />
+                  <span className="font-medium text-gray-700">Any Device</span>
                 </div>
               </div>
             </div>
 
-            {/* Enhanced File Uploader */}
-            <div className="max-w-3xl mx-auto mb-8">
+            {/* Compact File Uploader */}
+            <div className="max-w-2xl mx-auto mb-6">
               <FileUploader
                 onFilesSelect={handleFilesSelect}
                 accept={{ 'application/pdf': ['.pdf'] }}
@@ -185,36 +214,35 @@ export default function MergePdf() {
               />
             </div>
 
-            {/* Compact Selected Files Preview */}
+            {/* Minimal Selected Files Preview */}
             {selectedFiles.length > 0 && (
-              <div className="max-w-3xl mx-auto">
-                <div className="bg-white rounded-xl shadow-sm border p-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-semibold text-gray-900">
-                      Ready to Merge ({selectedFiles.length} files)
+              <div className="max-w-2xl mx-auto">
+                <div className="bg-white rounded-lg shadow-sm border p-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="font-semibold text-gray-900 text-sm">
+                      {selectedFiles.length} files ready to merge
                     </h3>
-                    <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium">
+                    <div className="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">
                       Processing...
                     </div>
                   </div>
                   
-                  <div className="grid gap-2 max-h-32 overflow-y-auto">
+                  <div className="space-y-1 max-h-24 overflow-y-auto">
                     {selectedFiles.slice(0, 3).map((file, index) => (
-                      <div key={index} className="flex items-center space-x-3 p-2 bg-gray-50 rounded-lg">
+                      <div key={index} className="flex items-center space-x-2 p-2 bg-gray-50 rounded text-xs">
                         <div className="bg-red-500 rounded p-1">
-                          <FileText className="w-3 h-3 text-white" />
+                          <FileText className="w-2 h-2 text-white" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900 truncate">{file.name}</p>
-                          <p className="text-xs text-gray-500">{(file.size / 1024 / 1024).toFixed(1)} MB</p>
+                          <p className="font-medium text-gray-900 truncate">{file.name}</p>
                         </div>
-                        <div className="bg-blue-500 text-white px-2 py-1 rounded text-xs font-bold">
+                        <div className="bg-blue-500 text-white px-1.5 py-0.5 rounded text-xs">
                           #{index + 1}
                         </div>
                       </div>
                     ))}
                     {selectedFiles.length > 3 && (
-                      <div className="text-center text-gray-500 text-sm py-1">
+                      <div className="text-center text-gray-500 text-xs py-1">
                         +{selectedFiles.length - 3} more files
                       </div>
                     )}
@@ -225,233 +253,257 @@ export default function MergePdf() {
           </div>
         </div>
 
-        {/* Enhanced Features Section */}
-        <div className="py-16 bg-white">
+        {/* Compact Features Grid */}
+        <div className="py-12 bg-white">
           <div className="max-w-5xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Why Choose Our PDF Merger Tool?
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-3">
+                Professional PDF Merging Made Simple
               </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Professional-grade PDF combining with enterprise security standards, completely free for unlimited use
+              <p className="text-gray-600 max-w-xl mx-auto">
+                Enterprise-grade security meets user-friendly design for the perfect PDF combining experience
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 border border-green-100">
-                <div className="bg-green-500 rounded-lg p-3 w-12 h-12 mb-4">
-                  <Shield className="w-6 h-6 text-white" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-4 border border-green-100">
+                <div className="flex items-center mb-3">
+                  <div className="bg-green-500 rounded-lg p-2 mr-3">
+                    <Shield className="w-4 h-4 text-white" />
+                  </div>
+                  <h3 className="font-bold text-gray-900">Military-Grade Security</h3>
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Bank-Level Security</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  Your PDF files are protected with 256-bit SSL encryption during upload and processing. All files are automatically deleted within 24 hours.
+                <p className="text-gray-600 text-sm mb-2">
+                  256-bit SSL encryption protects your files during processing. Automatic deletion within 60 minutes ensures complete privacy.
                 </p>
                 <div className="flex items-center text-xs text-green-600">
                   <Lock className="w-3 h-3 mr-1" />
-                  <span>SSL Encrypted Processing</span>
+                  <span>Zero Data Retention</span>
                 </div>
               </div>
               
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100">
-                <div className="bg-blue-500 rounded-lg p-3 w-12 h-12 mb-4">
-                  <Zap className="w-6 h-6 text-white" />
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-4 border border-blue-100">
+                <div className="flex items-center mb-3">
+                  <div className="bg-blue-500 rounded-lg p-2 mr-3">
+                    <Zap className="w-4 h-4 text-white" />
+                  </div>
+                  <h3 className="font-bold text-gray-900">Lightning Processing</h3>
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Lightning Fast Processing</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  Advanced algorithms merge large PDF files in seconds. Process up to 100 files simultaneously while maintaining original quality.
+                <p className="text-gray-600 text-sm mb-2">
+                  Advanced algorithms merge hundreds of PDFs in seconds while preserving every detail of your original documents.
                 </p>
                 <div className="flex items-center text-xs text-blue-600">
                   <Clock className="w-3 h-3 mr-1" />
-                  <span>Average 5-10 seconds</span>
+                  <span>Under 10 Seconds Average</span>
                 </div>
               </div>
               
-              <div className="bg-gradient-to-br from-purple-50 to-violet-50 rounded-xl p-6 border border-purple-100">
-                <div className="bg-purple-500 rounded-lg p-3 w-12 h-12 mb-4">
-                  <Globe className="w-6 h-6 text-white" />
+              <div className="bg-gradient-to-br from-purple-50 to-violet-50 rounded-lg p-4 border border-purple-100">
+                <div className="flex items-center mb-3">
+                  <div className="bg-purple-500 rounded-lg p-2 mr-3">
+                    <Globe className="w-4 h-4 text-white" />
+                  </div>
+                  <h3 className="font-bold text-gray-900">Universal Access</h3>
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Universal Device Support</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  Works flawlessly on Windows, Mac, iOS, Android, and Linux. No software installation or browser plugins required.
+                <p className="text-gray-600 text-sm mb-2">
+                  Works seamlessly across all platforms and devices. No downloads, installations, or compatibility headaches.
                 </p>
-                <div className="flex items-center space-x-2 text-xs text-purple-600">
+                <div className="flex items-center space-x-1 text-xs text-purple-600">
                   <Monitor className="w-3 h-3" />
                   <Smartphone className="w-3 h-3" />
-                  <span>All Platforms</span>
+                  <span>Any Device</span>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-xl p-6 border border-orange-100">
-                <div className="bg-orange-500 rounded-lg p-3 w-12 h-12 mb-4">
-                  <Award className="w-6 h-6 text-white" />
+              <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-lg p-4 border border-orange-100">
+                <div className="flex items-center mb-3">
+                  <div className="bg-orange-500 rounded-lg p-2 mr-3">
+                    <Award className="w-4 h-4 text-white" />
+                  </div>
+                  <h3 className="font-bold text-gray-900">Perfect Quality</h3>
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Premium Quality Output</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  Preserve original fonts, images, formatting, and metadata. Professional results suitable for business and legal documents.
+                <p className="text-gray-600 text-sm mb-2">
+                  Maintain original formatting, fonts, and image quality. Professional results suitable for any business application.
                 </p>
                 <div className="flex items-center text-xs text-orange-600">
                   <CheckCircle className="w-3 h-3 mr-1" />
-                  <span>Lossless Quality</span>
+                  <span>Lossless Merging</span>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-xl p-6 border border-teal-100">
-                <div className="bg-teal-500 rounded-lg p-3 w-12 h-12 mb-4">
-                  <Infinity className="w-6 h-6 text-white" />
+              <div className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-lg p-4 border border-teal-100">
+                <div className="flex items-center mb-3">
+                  <div className="bg-teal-500 rounded-lg p-2 mr-3">
+                    <Infinity className="w-4 h-4 text-white" />
+                  </div>
+                  <h3 className="font-bold text-gray-900">No Restrictions</h3>
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">No Limits or Restrictions</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  Merge unlimited PDF files with no size restrictions. No daily limits, no premium accounts, no hidden fees ever.
+                <p className="text-gray-600 text-sm mb-2">
+                  Merge unlimited files with no size caps or daily limits. Complete freedom without hidden costs or premium upgrades.
                 </p>
                 <div className="flex items-center text-xs text-teal-600">
                   <Star className="w-3 h-3 mr-1 fill-current" />
-                  <span>100% Free Forever</span>
+                  <span>Always Free</span>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-pink-50 to-rose-50 rounded-xl p-6 border border-pink-100">
-                <div className="bg-pink-500 rounded-lg p-3 w-12 h-12 mb-4">
-                  <Users className="w-6 h-6 text-white" />
+              <div className="bg-gradient-to-br from-pink-50 to-rose-50 rounded-lg p-4 border border-pink-100">
+                <div className="flex items-center mb-3">
+                  <div className="bg-pink-500 rounded-lg p-2 mr-3">
+                    <Users className="w-4 h-4 text-white" />
+                  </div>
+                  <h3 className="font-bold text-gray-900">Proven Reliability</h3>
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Trusted by Millions</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  Over 2 million users worldwide trust our PDF tools. Join businesses, students, and professionals who rely on our service daily.
+                <p className="text-gray-600 text-sm mb-2">
+                  Trusted by over 3 million professionals worldwide. Join enterprises and individuals who rely on our service daily.
                 </p>
                 <div className="flex items-center text-xs text-pink-600">
                   <Star className="w-3 h-3 mr-1 fill-current" />
-                  <span>4.9/5 User Rating</span>
+                  <span>4.9★ Rating</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* SEO Content Section */}
-        <div className="py-16 bg-gray-50">
+        {/* Compact How-To Section */}
+        <div className="py-12 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4">
-            <div className="prose prose-lg max-w-none">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                How to Merge PDF Files Online: Complete Guide
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-3">
+                Three Simple Steps to Perfect PDF Merging
               </h2>
+              <p className="text-gray-600">
+                Professional document combining has never been this straightforward
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-6 mb-8">
+              <div className="text-center">
+                <div className="bg-blue-500 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4">
+                  <Upload className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="font-bold text-gray-900 mb-2">Upload PDFs</h3>
+                <p className="text-gray-600 text-sm">
+                  Drag and drop multiple PDF files or click to browse. Support for unlimited files up to 100MB each.
+                </p>
+              </div>
               
-              <div className="grid md:grid-cols-2 gap-8 mb-12">
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4">Step-by-Step Instructions</h3>
-                  <ol className="list-decimal list-inside space-y-3 text-gray-700">
-                    <li><strong>Upload your PDF files:</strong> Click "Choose Files" or drag and drop multiple PDF documents into the upload area.</li>
-                    <li><strong>Arrange the order:</strong> Reorder files by dragging them up or down in the preview screen to set your preferred sequence.</li>
-                    <li><strong>Merge and download:</strong> Click the "Merge PDFs" button and download your combined document instantly.</li>
-                  </ol>
+              <div className="text-center">
+                <div className="bg-green-500 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4">
+                  <Merge className="w-6 h-6 text-white" />
                 </div>
-                
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4">Pro Tips for Best Results</h3>
-                  <ul className="list-disc list-inside space-y-3 text-gray-700">
-                    <li>Ensure all PDF files are not password-protected before uploading</li>
-                    <li>Check file names to maintain logical document order</li>
-                    <li>Use consistent page orientations for professional appearance</li>
-                    <li>Preview merged document before sharing with colleagues</li>
-                  </ul>
-                </div>
+                <h3 className="font-bold text-gray-900 mb-2">Arrange & Merge</h3>
+                <p className="text-gray-600 text-sm">
+                  Reorder files by dragging in preview mode. Click merge to combine documents while preserving quality.
+                </p>
               </div>
+              
+              <div className="text-center">
+                <div className="bg-purple-500 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4">
+                  <Download className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="font-bold text-gray-900 mb-2">Download Result</h3>
+                <p className="text-gray-600 text-sm">
+                  Instantly download your professionally merged PDF. Original files automatically deleted for security.
+                </p>
+              </div>
+            </div>
 
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Common Use Cases for PDF Merging
-              </h3>
-              <p className="text-gray-700 mb-6">
-                Our free PDF merger tool serves various professional and personal needs. Whether you're consolidating business reports, combining academic papers, merging contract documents, or organizing personal files, this tool handles all scenarios efficiently.
-              </p>
-
-              <div className="bg-white rounded-xl p-6 mb-8 border">
-                <h4 className="text-lg font-semibold text-gray-900 mb-3">Business Applications</h4>
-                <p className="text-gray-700 mb-3">
-                  Combine quarterly reports, merge presentation slides with supporting documents, consolidate invoices and receipts, or create comprehensive proposal packages. Perfect for creating professional document packages for clients, investors, or internal teams.
+            {/* Compact Use Cases */}
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-white rounded-lg p-5 border">
+                <h4 className="font-semibold text-gray-900 mb-3">Business Applications</h4>
+                <p className="text-gray-700 text-sm">
+                  Combine quarterly reports with financial statements, merge presentation slides with supporting documentation, consolidate contracts with amendments, or create comprehensive proposal packages. Perfect for client deliverables, investor presentations, and internal documentation workflows.
                 </p>
               </div>
 
-              <div className="bg-white rounded-xl p-6 mb-8 border">
-                <h4 className="text-lg font-semibold text-gray-900 mb-3">Academic and Research</h4>
-                <p className="text-gray-700 mb-3">
-                  Merge research papers with appendices, combine chapter drafts into complete manuscripts, consolidate reference materials, or create comprehensive study guides. Ideal for students, researchers, and educators managing large document collections.
+              <div className="bg-white rounded-lg p-5 border">
+                <h4 className="font-semibold text-gray-900 mb-3">Academic & Personal</h4>
+                <p className="text-gray-700 text-sm">
+                  Merge thesis chapters with appendices, combine research papers with reference materials, consolidate tax documents with supporting receipts, or organize family documents into single files. Ideal for students, researchers, and anyone managing multiple related documents.
                 </p>
-              </div>
-
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Why Choose Online PDF Merging Over Desktop Software?
-              </h3>
-              <p className="text-gray-700 mb-6">
-                Online PDF merging offers significant advantages over traditional desktop software. No installation requirements mean you can access the tool from any device, anywhere. Automatic updates ensure you always have the latest features without manual software maintenance.
-              </p>
-
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="bg-white rounded-lg p-4 border">
-                  <h4 className="font-semibold text-gray-900 mb-2">Accessibility</h4>
-                  <p className="text-sm text-gray-700">Work from any device with internet access. No software licenses or compatibility issues.</p>
-                </div>
-                <div className="bg-white rounded-lg p-4 border">
-                  <h4 className="font-semibold text-gray-900 mb-2">Cost Effective</h4>
-                  <p className="text-sm text-gray-700">Completely free with no subscription fees, licensing costs, or hidden charges.</p>
-                </div>
-                <div className="bg-white rounded-lg p-4 border">
-                  <h4 className="font-semibold text-gray-900 mb-2">Always Updated</h4>
-                  <p className="text-sm text-gray-700">Latest features and security updates automatically available without manual installation.</p>
-                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* FAQ Section */}
-        <div className="py-16 bg-white">
+        {/* Interactive FAQ Section */}
+        <div className="py-12 bg-white">
           <div className="max-w-3xl mx-auto px-4">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-              Frequently Asked Questions About PDF Merging
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-3">
+                Everything You Need to Know
+              </h2>
+              <p className="text-gray-600">
+                Get answers to common questions about our PDF merging service
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              {faqData.map((faq, index) => (
+                <div key={index} className="border border-gray-200 rounded-lg overflow-hidden">
+                  <button
+                    onClick={() => toggleFaq(index)}
+                    className="w-full px-6 py-4 text-left bg-white hover:bg-gray-50 transition-colors duration-200 flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset"
+                  >
+                    <h3 className="font-semibold text-gray-900 pr-4">
+                      {faq.question}
+                    </h3>
+                    <div className="flex-shrink-0">
+                      {openFaq === index ? (
+                        <ChevronUp className="w-5 h-5 text-gray-500" />
+                      ) : (
+                        <ChevronDown className="w-5 h-5 text-gray-500" />
+                      )}
+                    </div>
+                  </button>
+                  
+                  {openFaq === index && (
+                    <div className="px-6 pb-4 bg-gray-50">
+                      <p className="text-gray-700 leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Additional Help */}
+            <div className="mt-8 text-center">
+              <div className="inline-flex items-center px-4 py-2 bg-blue-50 rounded-lg">
+                <AlertCircle className="w-4 h-4 text-blue-600 mr-2" />
+                <span className="text-sm text-blue-800">
+                  Still have questions? Our support team responds within 24 hours.
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Final CTA Section */}
+        <div className="py-12 bg-gradient-to-br from-blue-50 to-indigo-50">
+          <div className="max-w-3xl mx-auto px-4 text-center">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              Ready to Merge Your PDFs?
             </h2>
-
-            <div className="space-y-6">
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  Is it safe to merge PDF files online?
-                </h3>
-                <p className="text-gray-700">
-                  Yes, our PDF merger uses bank-level 256-bit SSL encryption to protect your files during upload and processing. All files are automatically deleted from our servers within 24 hours, and we never store, share, or access your documents.
-                </p>
+            <p className="text-gray-600 mb-6">
+              Join millions of satisfied users who trust our secure, fast, and reliable PDF merging service
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <div className="flex items-center bg-white rounded-full px-4 py-2 shadow-sm">
+                <CheckCircle className="w-4 h-4 text-green-600 mr-2" />
+                <span className="text-sm font-medium text-gray-700">No Registration Required</span>
               </div>
-
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  How many PDF files can I merge at once?
-                </h3>
-                <p className="text-gray-700">
-                  There's no limit on the number of PDF files you can merge. Our system efficiently handles everything from 2 files to over 100 documents simultaneously, with each file supporting up to 100MB in size.
-                </p>
+              <div className="flex items-center bg-white rounded-full px-4 py-2 shadow-sm">
+                <Shield className="w-4 h-4 text-blue-600 mr-2" />
+                <span className="text-sm font-medium text-gray-700">Files Deleted After 1 Hour</span>
               </div>
-
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  Will the quality of my PDFs be affected after merging?
-                </h3>
-                <p className="text-gray-700">
-                  No, our advanced merging algorithm preserves the original quality, formatting, fonts, images, and metadata of your PDF files. The merged document maintains the same visual fidelity as your source files.
-                </p>
-              </div>
-
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  Do I need to register or pay to use this PDF merger?
-                </h3>
-                <p className="text-gray-700">
-                  No registration or payment required. Our PDF merger is completely free with no hidden costs, subscription fees, or premium accounts. All features are available to everyone at no charge.
-                </p>
-              </div>
-
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  Can I merge password-protected PDF files?
-                </h3>
-                <p className="text-gray-700">
-                  Currently, password-protected PDFs cannot be merged directly. You'll need to remove password protection from your PDFs before uploading them for merging. This ensures the security and integrity of the merging process.
-                </p>
+              <div className="flex items-center bg-white rounded-full px-4 py-2 shadow-sm">
+                <Star className="w-4 h-4 text-yellow-600 mr-2 fill-current" />
+                <span className="text-sm font-medium text-gray-700">100% Free Forever</span>
               </div>
             </div>
           </div>

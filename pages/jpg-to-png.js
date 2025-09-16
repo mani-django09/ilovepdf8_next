@@ -12,12 +12,17 @@ import {
   CheckCircle,
   Award,
   Monitor,
-  Download
+  Download,
+  ChevronDown,
+  ChevronUp,
+  Layers,
+  Palette
 } from 'lucide-react'
 
 export default function JpgToPng() {
   const [selectedImages, setSelectedImages] = useState([])
   const [isRedirecting, setIsRedirecting] = useState(false)
+  const [openFaq, setOpenFaq] = useState(0)
   const router = useRouter()
 
   const handleImagesSelect = (images) => {
@@ -33,37 +38,46 @@ export default function JpgToPng() {
     }
   }
 
-  // SEO structured data
+  const toggleFaq = (index) => {
+    setOpenFaq(openFaq === index ? -1 : index)
+  }
+
+  const faqData = [
+    {
+      question: "Why convert JPG to PNG instead of keeping the smaller file size?",
+      answer: "While JPG files are smaller, PNG offers critical advantages for certain use cases. If you need transparency support, pixel-perfect quality, or plan to edit the image further, PNG is essential. Think of it as choosing between a compressed photo and a master file - PNG gives you flexibility for future modifications."
+    },
+    {
+      question: "Will converting JPG to PNG improve image quality?",
+      answer: "Converting won't restore quality already lost in JPG compression, but it prevents further quality loss. PNG uses lossless compression, so once converted, your image maintains its current quality permanently. It's like making a perfect copy of what you currently have."
+    },
+    {
+      question: "How much larger will my files become after conversion?",
+      answer: "PNG files are typically 3-5 times larger than equivalent JPG images due to lossless compression. A 200KB JPG might become 800KB-1MB as PNG. The exact increase depends on image complexity - simple graphics see smaller increases, while detailed photos grow significantly."
+    },
+    {
+      question: "Can I add transparency to the converted PNG images?",
+      answer: "The conversion itself doesn't create transparency, but PNG format supports it perfectly. After converting, you can use any image editing software to add transparent backgrounds, create cutouts, or apply alpha effects. JPG format can never support transparency."
+    },
+    {
+      question: "When should I choose PNG over JPG for my images?",
+      answer: "Choose PNG for logos, graphics with text, images you'll edit later, or anything needing transparency. Stick with JPG for photographs, social media uploads, or when file size matters more than perfect quality. PNG is the professional choice for graphics work."
+    },
+    {
+      question: "Is there a limit to how many JPG files I can convert?",
+      answer: "Our converter handles batch processing efficiently. Upload multiple JPG files simultaneously - dozens at a time work perfectly. This makes it ideal for converting entire photo albums, product catalogs, or design asset libraries in one go."
+    }
+  ]
+
+  // SEO structured data (truncated for brevity)
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Free JPG to PNG Converter - Convert JPEG Images to PNG Online",
-    "description": "Convert JPG/JPEG images to PNG format online for free. Add transparency support and lossless quality. Batch conversion available.",
-    "url": "https://yoursite.com/jpg-to-png",
-    "applicationCategory": "BusinessApplication",
-    "operatingSystem": "Any",
-    "browserRequirements": "HTML5",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "featureList": [
-      "Convert JPG to PNG images for free",
-      "Lossless image conversion",
-      "Batch image processing",
-      "Maintain image quality",
-      "Add transparency support",
-      "No registration required"
-    ],
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.7",
-      "reviewCount": "8934"
-    }
+    "description": "Convert JPG/JPEG images to PNG format online for free. Add transparency support and lossless quality. Batch conversion available."
   }
 
-  // Loading overlay during redirect
+  // Loading overlay
   if (isRedirecting) {
     return (
       <>
@@ -73,16 +87,16 @@ export default function JpgToPng() {
         <Layout>
           <div className="fixed inset-0 bg-white z-50 flex items-center justify-center">
             <div className="text-center">
-              <div className="relative mb-8">
-                <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-200 border-t-blue-600 mx-auto"></div>
+              <div className="relative mb-6">
+                <div className="animate-spin rounded-full h-12 w-12 border-3 border-blue-200 border-t-blue-600 mx-auto"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <Image className="w-6 h-6 text-blue-600" />
+                  <Image className="w-5 h-5 text-blue-600" />
                 </div>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Analyzing Images</h2>
-              <p className="text-gray-600 mb-4">Preparing conversion interface...</p>
-              <div className="bg-gray-200 rounded-full h-2 w-64 mx-auto">
-                <div className="bg-blue-600 h-2 rounded-full animate-pulse w-3/4"></div>
+              <h2 className="text-xl font-bold text-gray-900 mb-2">Converting JPG Images</h2>
+              <p className="text-gray-600 mb-4">Creating PNG files...</p>
+              <div className="bg-gray-200 rounded-full h-1.5 w-48 mx-auto">
+                <div className="bg-blue-600 h-1.5 rounded-full animate-pulse w-3/4"></div>
               </div>
             </div>
           </div>
@@ -94,7 +108,7 @@ export default function JpgToPng() {
   return (
     <>
       <Head>
-        <title>Free JPG to PNG Converter Online - Convert JPEG to PNG | Lossless Quality</title>
+        <title>Free JPG to PNG Converter Online - Add Transparency Support | Lossless Quality</title>
         <meta name="description" content="Convert JPG/JPEG images to PNG format online for free. Perfect for graphics, transparency needs, and lossless image quality. Batch conversion supported." />
         <meta name="keywords" content="JPG to PNG converter, JPEG to PNG converter, convert JPG to PNG, lossless image conversion, transparency support, batch image conversion" />
         
@@ -112,37 +126,37 @@ export default function JpgToPng() {
       </Head>
       
       <Layout>
-        {/* Compact Hero Section */}
+        {/* Ultra Compact Hero Section */}
         <div className="bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-8">
           <div className="max-w-4xl mx-auto px-4">
-            {/* Header */}
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center p-2 bg-blue-100 rounded-xl mb-3">
-                <Image className="w-5 h-5 text-blue-600 mr-2" />
-                <span className="text-blue-600 font-semibold text-sm">Lossless Image Converter</span>
+            {/* Tight Header */}
+            <div className="text-center mb-6">
+              <div className="inline-flex items-center justify-center p-1.5 bg-blue-100 rounded-lg mb-3">
+                <Image className="w-4 h-4 text-blue-600 mr-1.5" />
+                <span className="text-blue-600 font-medium text-sm">JPG to PNG</span>
               </div>
               
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3 leading-tight">
-                Convert JPG to PNG Online <span className="text-blue-600">Free</span>
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 leading-tight">
+                Convert JPG to PNG <span className="text-blue-600">Online Free</span>
               </h1>
               
-              <p className="text-lg text-gray-600 max-w-xl mx-auto mb-6">
-                Transform JPG/JPEG images to PNG format with lossless quality. Perfect for graphics that need transparency support.
+              <p className="text-base text-gray-600 max-w-xl mx-auto mb-4">
+                Transform JPEG images to PNG format with lossless quality and transparency support for professional graphics.
               </p>
               
-              {/* Compact Trust Indicators */}
-              <div className="flex items-center justify-center gap-3 mb-6">
-                <div className="flex items-center space-x-1 bg-white rounded-full px-3 py-1 shadow-sm text-sm">
-                  <CheckCircle className="w-3 h-3 text-blue-600" />
-                  <span className="text-gray-700 font-medium">Lossless</span>
+              {/* Compact Trust Badges */}
+              <div className="flex flex-wrap items-center justify-center gap-2 mb-6">
+                <div className="flex items-center space-x-1 bg-white rounded-full px-3 py-1 shadow-sm text-xs">
+                  <Award className="w-3 h-3 text-blue-600" />
+                  <span className="font-medium text-gray-700">Lossless</span>
                 </div>
-                <div className="flex items-center space-x-1 bg-white rounded-full px-3 py-1 shadow-sm text-sm">
-                  <Shield className="w-3 h-3 text-green-600" />
-                  <span className="text-gray-700 font-medium">Secure</span>
+                <div className="flex items-center space-x-1 bg-white rounded-full px-3 py-1 shadow-sm text-xs">
+                  <Layers className="w-3 h-3 text-green-600" />
+                  <span className="font-medium text-gray-700">Transparency</span>
                 </div>
-                <div className="flex items-center space-x-1 bg-white rounded-full px-3 py-1 shadow-sm text-sm">
+                <div className="flex items-center space-x-1 bg-white rounded-full px-3 py-1 shadow-sm text-xs">
                   <Zap className="w-3 h-3 text-yellow-600" />
-                  <span className="text-gray-700 font-medium">Fast</span>
+                  <span className="font-medium text-gray-700">Batch</span>
                 </div>
               </div>
             </div>
@@ -157,35 +171,37 @@ export default function JpgToPng() {
               />
             </div>
 
-            {/* Selected Images Preview */}
+            {/* Compact Selected Images Preview */}
             {selectedImages.length > 0 && (
               <div className="max-w-2xl mx-auto">
                 <div className="bg-white rounded-lg shadow-sm border p-4">
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-semibold text-gray-900">
-                      Ready to Convert ({selectedImages.length} images)
+                    <h3 className="font-medium text-gray-900 text-sm">
+                      Converting {selectedImages.length} JPG images
                     </h3>
-                    <div className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">
-                      Processing...
+                    <div className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">
+                      Ready
                     </div>
                   </div>
                   
-                  <div className="grid grid-cols-3 md:grid-cols-5 gap-2">
-                    {selectedImages.slice(0, 5).map((image, index) => (
+                  <div className="grid grid-cols-4 gap-2">
+                    {selectedImages.slice(0, 4).map((image, index) => (
                       <div key={index} className="relative">
-                        <img
-                          src={URL.createObjectURL(image)}
-                          alt={`Preview ${index + 1}`}
-                          className="w-full h-16 object-cover rounded"
-                        />
-                        <div className="absolute bottom-0 right-0 bg-orange-500 text-white px-1 py-0.5 rounded-tl text-xs font-bold">
+                        <div className="aspect-square bg-gray-100 rounded overflow-hidden">
+                          <img
+                            src={URL.createObjectURL(image)}
+                            alt={image.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="bg-orange-500 text-white px-1 py-0.5 rounded text-xs font-bold inline-block mt-1">
                           JPG
                         </div>
                       </div>
                     ))}
-                    {selectedImages.length > 5 && (
-                      <div className="flex items-center justify-center bg-gray-100 rounded h-16">
-                        <span className="text-gray-500 text-sm font-medium">+{selectedImages.length - 5}</span>
+                    {selectedImages.length > 4 && (
+                      <div className="aspect-square bg-gray-100 rounded flex items-center justify-center">
+                        <span className="text-gray-500 text-xs font-medium">+{selectedImages.length - 4}</span>
                       </div>
                     )}
                   </div>
@@ -195,95 +211,99 @@ export default function JpgToPng() {
           </div>
         </div>
 
-        {/* Compact Features Section */}
+        {/* Compact Features */}
         <div className="py-12 bg-white">
           <div className="max-w-4xl mx-auto px-4">
             <div className="text-center mb-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-3">
                 Why Convert JPG to PNG?
               </h2>
-              <p className="text-gray-600 max-w-xl mx-auto">
-                PNG format offers lossless compression and transparency support, perfect for graphics and web design.
-              </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-5 border border-blue-100">
-                <div className="bg-blue-500 rounded-lg p-2 w-10 h-10 mb-3">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="text-center p-4">
+                <div className="bg-blue-500 rounded-lg p-2 w-10 h-10 mx-auto mb-3">
                   <Award className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Lossless Quality</h3>
-                <p className="text-gray-600 text-sm">
-                  PNG uses lossless compression, preserving every pixel of your original image without quality degradation.
-                </p>
+                <h3 className="font-semibold text-gray-900 mb-2 text-sm">Perfect Quality</h3>
+                <p className="text-gray-600 text-xs">Lossless compression</p>
               </div>
               
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-5 border border-green-100">
-                <div className="bg-green-500 rounded-lg p-2 w-10 h-10 mb-3">
-                  <Monitor className="w-6 h-6 text-white" />
+              <div className="text-center p-4">
+                <div className="bg-green-500 rounded-lg p-2 w-10 h-10 mx-auto mb-3">
+                  <Layers className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Transparency Support</h3>
-                <p className="text-gray-600 text-sm">
-                  PNG supports transparent backgrounds, making it perfect for logos, graphics, and web design elements.
-                </p>
+                <h3 className="font-semibold text-gray-900 mb-2 text-sm">Add Transparency</h3>
+                <p className="text-gray-600 text-xs">Alpha channel support</p>
               </div>
               
-              <div className="bg-gradient-to-br from-purple-50 to-violet-50 rounded-lg p-5 border border-purple-100">
-                <div className="bg-purple-500 rounded-lg p-2 w-10 h-10 mb-3">
+              <div className="text-center p-4">
+                <div className="bg-purple-500 rounded-lg p-2 w-10 h-10 mx-auto mb-3">
+                  <Palette className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-2 text-sm">Design Ready</h3>
+                <p className="text-gray-600 text-xs">Professional graphics</p>
+              </div>
+
+              <div className="text-center p-4">
+                <div className="bg-orange-500 rounded-lg p-2 w-10 h-10 mx-auto mb-3">
                   <Download className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Batch Processing</h3>
-                <p className="text-gray-600 text-sm">
-                  Convert multiple JPG images to PNG format simultaneously. Process dozens of files with one click.
-                </p>
+                <h3 className="font-semibold text-gray-900 mb-2 text-sm">Batch Convert</h3>
+                <p className="text-gray-600 text-xs">Multiple files at once</p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Compact SEO Content */}
+        {/* Compact Content Section */}
         <div className="py-12 bg-gray-50">
-          <div className="max-w-3xl mx-auto px-4">
-            <div className="grid md:grid-cols-2 gap-8">
+          <div className="max-w-4xl mx-auto px-4">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              Transform JPG for Professional Graphics
+            </h2>
+            
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Simple Conversion Process</h3>
-                <ol className="list-decimal list-inside space-y-2 text-gray-700 text-sm">
-                  <li><strong>Upload JPG files:</strong> Select your JPEG images or drag them into the upload area.</li>
-                  <li><strong>Convert to PNG:</strong> Click convert and wait for processing to complete.</li>
-                  <li><strong>Download results:</strong> Get your PNG files individually or as a ZIP archive.</li>
-                </ol>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">Perfect for Design Work</h3>
+                <p className="text-gray-700 text-sm mb-4">
+                  Converting JPG to PNG unlocks creative possibilities that compressed formats can't offer. Need to remove backgrounds? Add transparent elements? Layer graphics? PNG format handles all of this while preserving every pixel of detail.
+                </p>
+                <p className="text-gray-700 text-sm">
+                  Professional designers choose PNG for logos, icons, and graphics because it maintains crisp edges and supports the alpha transparency essential for modern web design and print work.
+                </p>
               </div>
               
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">When to Use PNG Format</h3>
-                <ul className="list-disc list-inside space-y-2 text-gray-700 text-sm">
-                  <li><strong>Graphics & Logos:</strong> Sharp edges and solid colors</li>
-                  <li><strong>Transparency:</strong> When you need transparent backgrounds</li>
-                  <li><strong>Text Images:</strong> Screenshots with text content</li>
-                  <li><strong>Web Graphics:</strong> Icons and interface elements</li>
-                </ul>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">Future-Proof Your Images</h3>
+                <p className="text-gray-700 text-sm mb-4">
+                  JPG compression permanently discards image data to save space. Converting to PNG stops this degradation process, creating a stable master file that won't lose quality through future edits or saves.
+                </p>
+                <p className="text-gray-700 text-sm">
+                  Think of PNG conversion as creating a digital negative - a pristine copy that preserves your current image quality for all future modifications and exports.
+                </p>
               </div>
             </div>
 
-            <div className="mt-8 bg-white rounded-lg p-6 border">
-              <h4 className="text-lg font-semibold text-gray-900 mb-3">JPG vs PNG Comparison</h4>
-              <div className="grid md:grid-cols-2 gap-6 text-sm text-gray-700">
+            <div className="bg-white rounded-xl p-6 border">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Smart Format Choice Guide</h3>
+              <div className="grid md:grid-cols-2 gap-6 text-sm">
                 <div>
-                  <strong className="text-orange-600">JPG Best For:</strong>
-                  <ul className="list-disc list-inside mt-2 space-y-1">
-                    <li>Photographs with many colors</li>
-                    <li>Smaller file sizes needed</li>
-                    <li>Email and web optimization</li>
-                    <li>Social media uploads</li>
+                  <h4 className="font-medium text-orange-600 mb-2">Stick with JPG for:</h4>
+                  <ul className="list-disc list-inside space-y-1 text-gray-700">
+                    <li>Photos for social media sharing</li>
+                    <li>Email attachments with size limits</li>
+                    <li>Website headers and photography</li>
+                    <li>Quick phone snapshots</li>
                   </ul>
                 </div>
                 <div>
-                  <strong className="text-blue-600">PNG Best For:</strong>
-                  <ul className="list-disc list-inside mt-2 space-y-1">
-                    <li>Graphics with transparency</li>
-                    <li>Text and logos</li>
-                    <li>Images with sharp edges</li>
-                    <li>When quality is priority</li>
+                  <h4 className="font-medium text-blue-600 mb-2">Convert to PNG when:</h4>
+                  <ul className="list-disc list-inside space-y-1 text-gray-700">
+                    <li>Creating graphics or logos</li>
+                    <li>Need transparent backgrounds</li>
+                    <li>Planning further image editing</li>
+                    <li>Preparing print-quality artwork</li>
                   </ul>
                 </div>
               </div>
@@ -291,39 +311,61 @@ export default function JpgToPng() {
           </div>
         </div>
 
-        {/* Compact FAQ */}
+        {/* Interactive FAQ Section */}
         <div className="py-12 bg-white">
-          <div className="max-w-2xl mx-auto px-4">
+          <div className="max-w-3xl mx-auto px-4">
             <h2 className="text-2xl font-bold text-gray-900 text-center mb-8">
-              Frequently Asked Questions
+              JPG to PNG Conversion Questions
             </h2>
 
-            <div className="space-y-4">
-              <div className="bg-gray-50 rounded-lg p-4">
-                <h3 className="font-semibold text-gray-900 mb-2">
-                  Will converting JPG to PNG increase file size?
-                </h3>
-                <p className="text-gray-700 text-sm">
-                  Yes, PNG files are typically larger than JPG because PNG uses lossless compression while JPG uses lossy compression. However, you get perfect quality preservation.
-                </p>
-              </div>
+            <div className="space-y-3">
+              {faqData.map((faq, index) => (
+                <div key={index} className="border border-gray-200 rounded-lg overflow-hidden">
+                  <button
+                    className="w-full px-6 py-4 text-left bg-gray-50 hover:bg-gray-100 transition-colors duration-200 flex justify-between items-center"
+                    onClick={() => toggleFaq(index)}
+                  >
+                    <h3 className="font-medium text-gray-900 pr-4">{faq.question}</h3>
+                    {openFaq === index ? (
+                      <ChevronUp className="w-5 h-5 text-gray-500 flex-shrink-0" />
+                    ) : (
+                      <ChevronDown className="w-5 h-5 text-gray-500 flex-shrink-0" />
+                    )}
+                  </button>
+                  
+                  <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                    openFaq === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                  }`}>
+                    <div className="px-6 py-4 bg-white border-t border-gray-100">
+                      <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
 
-              <div className="bg-gray-50 rounded-lg p-4">
-                <h3 className="font-semibold text-gray-900 mb-2">
-                  Can I add transparency to converted PNG images?
-                </h3>
-                <p className="text-gray-700 text-sm">
-                  The conversion itself doesn't add transparency, but PNG format supports it. You'll need image editing software to add transparent areas after conversion.
-                </p>
-              </div>
-
-              <div className="bg-gray-50 rounded-lg p-4">
-                <h3 className="font-semibold text-gray-900 mb-2">
-                  How many images can I convert at once?
-                </h3>
-                <p className="text-gray-700 text-sm">
-                  You can upload and convert multiple JPG images simultaneously. Our batch converter handles dozens of files efficiently.
-                </p>
+            {/* Pro Tips */}
+            <div className="mt-8 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Best Practices for JPG to PNG Conversion</h3>
+              <div className="grid md:grid-cols-2 gap-4 text-sm text-gray-700">
+                <div>
+                  <strong>Before Converting:</strong>
+                  <ul className="list-disc list-inside mt-1 space-y-1">
+                    <li>Use highest quality JPG as source</li>
+                    <li>Consider if you really need transparency</li>
+                    <li>Check available storage space</li>
+                    <li>Plan your intended use case</li>
+                  </ul>
+                </div>
+                <div>
+                  <strong>After Converting:</strong>
+                  <ul className="list-disc list-inside mt-1 space-y-1">
+                    <li>Keep original JPG as backup</li>
+                    <li>Use PNG for further editing</li>
+                    <li>Optimize PNG for web if needed</li>
+                    <li>Consider WebP for modern browsers</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>

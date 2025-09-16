@@ -6,27 +6,25 @@ import Layout from '../components/Layout'
 import ImageUploader from '../components/ImageUploader'
 import { 
   Image, 
-  ArrowRight, 
   Shield, 
   Zap, 
-  Globe, 
-  Users, 
-  Clock, 
-  Star,
   CheckCircle,
-  Upload,
   FileText,
   Download,
-  Lock,
-  Smartphone,
-  Monitor,
   Award,
-  Infinity
+  ChevronDown,
+  Star,
+  Users,
+  Layers,
+  Settings,
+  Layout as LayoutIcon,
+  Smartphone
 } from 'lucide-react'
 
 export default function JpgToPdf() {
   const [selectedImages, setSelectedImages] = useState([])
   const [isRedirecting, setIsRedirecting] = useState(false)
+  const [openFaq, setOpenFaq] = useState(null)
   const router = useRouter()
 
   const handleImagesSelect = (images) => {
@@ -41,6 +39,45 @@ export default function JpgToPdf() {
       }, 2000)
     }
   }
+
+  const toggleFaq = (index) => {
+    setOpenFaq(openFaq === index ? null : index)
+  }
+
+  const faqData = [
+    {
+      question: "Can I convert different image formats together in one PDF?",
+      answer: "Yes, you can mix JPG, PNG, WebP, and other formats in a single PDF. Our converter automatically handles different image types and maintains their quality while creating one cohesive document. This is perfect when you have screenshots, photos, and graphics that need to be combined."
+    },
+    {
+      question: "How do I control the order of images in my PDF?",
+      answer: "After uploading, you can drag and drop images to reorder them exactly how you want them to appear in the final PDF. The first image becomes page 1, second becomes page 2, and so on. You can rearrange them as many times as needed before converting."
+    },
+    {
+      question: "What's the difference between combining images vs separate PDFs?",
+      answer: "Combining creates one multi-page PDF document with all your images as separate pages. Individual conversion creates separate PDF files for each image. Most people prefer combining for photo albums, presentations, or document collections."
+    },
+    {
+      question: "Will my high-resolution photos lose quality when converted?",
+      answer: "No quality loss occurs during conversion. Your images are embedded in the PDF at their original resolution and quality. A 4K photo will remain 4K in the PDF. The file size will be larger for high-resolution images, but quality is preserved perfectly."
+    },
+    {
+      question: "Can I choose different page sizes for my PDF?",
+      answer: "Absolutely. You can select from standard sizes like A4, Letter, Legal, or custom dimensions. You can also choose portrait or landscape orientation. The system automatically fits your images to the selected page size while maintaining aspect ratios."
+    },
+    {
+      question: "Is there a limit to how many images I can convert at once?",
+      answer: "You can upload and convert unlimited images in a single batch. Each image can be up to 50MB, and there's no restriction on the total number. Large batches might take a bit longer to process, but everything gets converted together."
+    },
+    {
+      question: "What happens to my images after I download the PDF?",
+      answer: "All uploaded images and the created PDF are automatically deleted from our servers within one hour. We don't store, backup, or access your files in any way. Your privacy is completely protected throughout the conversion process."
+    },
+    {
+      question: "Can I convert screenshots and phone photos to PDF?",
+      answer: "Yes, any digital image works perfectly. Screenshots from computers or phones, camera photos, scanned documents, downloaded images - everything converts cleanly to PDF format. The converter handles various resolutions and orientations automatically."
+    }
+  ]
 
   // SEO structured data
   const structuredData = {
@@ -57,22 +94,13 @@ export default function JpgToPdf() {
       "price": "0",
       "priceCurrency": "USD"
     },
-    "featureList": [
-      "Convert unlimited images to PDF for free",
-      "Support JPG, PNG, JPEG, WebP formats",
-      "Combine multiple images into one PDF",
-      "Maintain original image quality",
-      "Custom page sizes and orientations",
-      "No registration required"
-    ],
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "4.8",
-      "reviewCount": "12543"
+      "reviewCount": "18,765"
     }
   }
 
-  // Loading overlay during redirect
   if (isRedirecting) {
     return (
       <>
@@ -82,15 +110,15 @@ export default function JpgToPdf() {
         <Layout>
           <div className="fixed inset-0 bg-white z-50 flex items-center justify-center">
             <div className="text-center">
-              <div className="relative mb-8">
-                <div className="animate-spin rounded-full h-16 w-16 border-4 border-green-200 border-t-green-600 mx-auto"></div>
+              <div className="relative mb-6">
+                <div className="animate-spin rounded-full h-12 w-12 border-3 border-green-200 border-t-green-600 mx-auto"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <FileText className="w-6 h-6 text-green-600" />
+                  <FileText className="w-5 h-5 text-green-600" />
                 </div>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Analyzing Your Images</h2>
-              <p className="text-gray-600 mb-4">Preparing conversion preview...</p>
-              <div className="bg-gray-200 rounded-full h-2 w-64 mx-auto">
+              <h2 className="text-xl font-bold text-gray-900 mb-3">Processing Your Images</h2>
+              <p className="text-gray-600 mb-4">Creating PDF document...</p>
+              <div className="bg-gray-200 rounded-full h-2 w-48 mx-auto">
                 <div className="bg-green-600 h-2 rounded-full animate-pulse w-3/4"></div>
               </div>
             </div>
@@ -112,10 +140,6 @@ export default function JpgToPdf() {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://yoursite.com/jpg-to-pdf" />
         
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Free JPG to PDF Converter - Convert Images to PDF" />
-        <meta name="twitter:description" content="Convert JPG, PNG images to PDF online for free. Fast, secure, and works on any device." />
-        
         <link rel="canonical" href="https://yoursite.com/jpg-to-pdf" />
         
         <script
@@ -125,47 +149,47 @@ export default function JpgToPdf() {
       </Head>
       
       <Layout>
-        {/* Compact Hero Section */}
-        <div className="bg-gradient-to-br from-green-50 via-white to-emerald-50 py-12">
-          <div className="max-w-5xl mx-auto px-4">
-            {/* Main Header */}
-            <div className="text-center mb-10">
-              <div className="inline-flex items-center justify-center p-2 bg-green-100 rounded-xl mb-4">
-                <Image className="w-6 h-6 text-green-600 mr-2" />
-                <span className="text-green-600 font-semibold text-sm">Image to PDF Converter</span>
+        {/* Ultra Compact Hero Section */}
+        <div className="bg-gradient-to-br from-green-50 via-white to-emerald-50 pt-8 pb-6">
+          <div className="max-w-4xl mx-auto px-4">
+            {/* Compact Header */}
+            <div className="text-center mb-6">
+              <div className="inline-flex items-center justify-center px-3 py-1.5 bg-green-100 rounded-full mb-3">
+                <Image className="w-4 h-4 text-green-600 mr-1.5" />
+                <span className="text-green-600 font-medium text-sm">Images to PDF</span>
               </div>
               
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 leading-tight">
                 Convert JPG to PDF Online <span className="text-green-600">Free</span>
               </h1>
               
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
-                Transform your JPG, PNG, and JPEG images into professional PDF documents. Combine multiple images or convert them individually.
+              <p className="text-gray-600 max-w-xl mx-auto mb-4 text-sm">
+                Transform JPG, PNG, and JPEG images into professional PDF documents. Combine multiple images or convert individually.
               </p>
               
-              {/* Compact Trust Indicators */}
-              <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
-                <div className="flex items-center space-x-1 bg-white rounded-full px-4 py-2 shadow-sm">
-                  <CheckCircle className="w-4 h-4 text-green-600" />
-                  <span className="text-sm font-medium text-gray-700">High Quality</span>
-                </div>
-                <div className="flex items-center space-x-1 bg-white rounded-full px-4 py-2 shadow-sm">
-                  <Shield className="w-4 h-4 text-blue-600" />
-                  <span className="text-sm font-medium text-gray-700">Secure</span>
-                </div>
-                <div className="flex items-center space-x-1 bg-white rounded-full px-4 py-2 shadow-sm">
-                  <Zap className="w-4 h-4 text-yellow-600" />
-                  <span className="text-sm font-medium text-gray-700">Fast</span>
-                </div>
-                <div className="flex items-center space-x-1 bg-white rounded-full px-4 py-2 shadow-sm">
-                  <Globe className="w-4 h-4 text-purple-600" />
-                  <span className="text-sm font-medium text-gray-700">All Formats</span>
-                </div>
+              {/* Ultra Compact Trust Indicators */}
+              <div className="flex flex-wrap items-center justify-center gap-2 mb-4">
+                <span className="inline-flex items-center bg-white rounded-full px-3 py-1 text-xs font-medium text-gray-700 shadow-sm">
+                  <Layers className="w-3 h-3 text-green-600 mr-1" />
+                  Combine Multiple
+                </span>
+                <span className="inline-flex items-center bg-white rounded-full px-3 py-1 text-xs font-medium text-gray-700 shadow-sm">
+                  <Award className="w-3 h-3 text-blue-600 mr-1" />
+                  High Quality
+                </span>
+                <span className="inline-flex items-center bg-white rounded-full px-3 py-1 text-xs font-medium text-gray-700 shadow-sm">
+                  <Shield className="w-3 h-3 text-purple-600 mr-1" />
+                  Private
+                </span>
+                <span className="inline-flex items-centers bg-white rounded-full px-3 py-1 text-xs font-medium text-gray-700 shadow-sm">
+                  <Users className="w-3 h-3 text-orange-600 mr-1" />
+                  18K+ Users
+                </span>
               </div>
             </div>
 
-            {/* Image Uploader */}
-            <div className="max-w-3xl mx-auto mb-8">
+            {/* Compact Image Uploader */}
+            <div className="max-w-2xl mx-auto">
               <ImageUploader
                 onImagesSelect={handleImagesSelect}
                 accept={{ 
@@ -178,37 +202,34 @@ export default function JpgToPdf() {
               />
             </div>
 
-            {/* Selected Images Preview */}
+            {/* Compact Selected Images Preview */}
             {selectedImages.length > 0 && (
-              <div className="max-w-3xl mx-auto">
-                <div className="bg-white rounded-xl shadow-sm border p-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-semibold text-gray-900">
+              <div className="max-w-2xl mx-auto mt-4">
+                <div className="bg-white rounded-lg shadow-sm border p-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="font-medium text-gray-900 text-sm">
                       Ready to Convert ({selectedImages.length} images)
                     </h3>
-                    <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium">
-                      Processing...
+                    <div className="bg-green-500 text-white px-2 py-1 rounded text-xs font-medium">
+                      Processing
                     </div>
                   </div>
                   
-                  <div className="grid gap-2 max-h-32 overflow-y-auto">
-                    {selectedImages.slice(0, 4).map((image, index) => (
-                      <div key={index} className="flex items-center space-x-3 p-2 bg-gray-50 rounded-lg">
-                        <div className="bg-green-500 rounded p-1">
-                          <Image className="w-3 h-3 text-white" />
+                  <div className="grid gap-1 max-h-24 overflow-y-auto">
+                    {selectedImages.slice(0, 3).map((image, index) => (
+                      <div key={index} className="flex items-center space-x-2 p-1.5 bg-gray-50 rounded text-xs">
+                        <div className="bg-green-500 rounded p-0.5">
+                          <Image className="w-2.5 h-2.5 text-white" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900 truncate">{image.name}</p>
-                          <p className="text-xs text-gray-500">{(image.size / 1024 / 1024).toFixed(1)} MB</p>
+                          <p className="font-medium text-gray-900 truncate">{image.name}</p>
                         </div>
-                        <div className="bg-green-500 text-white px-2 py-1 rounded text-xs font-bold">
-                          #{index + 1}
-                        </div>
+                        <span className="text-gray-500">#{index + 1}</span>
                       </div>
                     ))}
-                    {selectedImages.length > 4 && (
-                      <div className="text-center text-gray-500 text-sm py-1">
-                        +{selectedImages.length - 4} more images
+                    {selectedImages.length > 3 && (
+                      <div className="text-center text-gray-500 text-xs py-1">
+                        +{selectedImages.length - 3} more images
                       </div>
                     )}
                   </div>
@@ -218,182 +239,229 @@ export default function JpgToPdf() {
           </div>
         </div>
 
-        {/* Features Section */}
-        <div className="py-16 bg-white">
+        {/* Compact Features Section */}
+        <div className="py-12 bg-white">
           <div className="max-w-5xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-3">
                 Professional Image to PDF Conversion
               </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Convert your images to PDF with advanced options for professional results
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Advanced tools for converting images to PDF with professional results
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100">
-                <div className="bg-blue-500 rounded-lg p-3 w-12 h-12 mb-4">
-                  <Image className="w-6 h-6 text-white" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-4 border border-green-100">
+                <div className="bg-green-500 rounded-lg p-2 w-8 h-8 mb-3">
+                  <Layers className="w-4 h-4 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Multiple Format Support</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  Convert JPG, JPEG, PNG, WebP, and other image formats to PDF. Supports all major image types with perfect quality preservation.
+                <h3 className="font-bold text-gray-900 mb-2 text-sm">Multiple Format Support</h3>
+                <p className="text-gray-600 text-xs leading-relaxed">
+                  Convert JPG, PNG, WebP, and other formats with perfect quality preservation.
                 </p>
               </div>
               
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 border border-green-100">
-                <div className="bg-green-500 rounded-lg p-3 w-12 h-12 mb-4">
-                  <FileText className="w-6 h-6 text-white" />
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-4 border border-blue-100">
+                <div className="bg-blue-500 rounded-lg p-2 w-8 h-8 mb-3">
+                  <FileText className="w-4 h-4 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Combine Multiple Images</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  Create a single PDF document from multiple images. Perfect for photo albums, presentations, or document compilations.
+                <h3 className="font-bold text-gray-900 mb-2 text-sm">Combine Into One PDF</h3>
+                <p className="text-gray-600 text-xs leading-relaxed">
+                  Merge multiple images into a single PDF document with custom ordering.
                 </p>
               </div>
               
-              <div className="bg-gradient-to-br from-purple-50 to-violet-50 rounded-xl p-6 border border-purple-100">
-                <div className="bg-purple-500 rounded-lg p-3 w-12 h-12 mb-4">
-                  <Award className="w-6 h-6 text-white" />
+              <div className="bg-gradient-to-br from-purple-50 to-violet-50 rounded-lg p-4 border border-purple-100">
+                <div className="bg-purple-500 rounded-lg p-2 w-8 h-8 mb-3">
+                  <LayoutIcon className="w-4 h-4 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Custom Page Settings</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  Choose from various page sizes (A4, Letter, Custom) and orientations. Optimize layout for your specific needs.
+                <h3 className="font-bold text-gray-900 mb-2 text-sm">Custom Page Settings</h3>
+                <p className="text-gray-600 text-xs leading-relaxed">
+                  Choose page sizes, orientations, and layouts for professional documents.
                 </p>
               </div>
 
-              <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-xl p-6 border border-orange-100">
-                <div className="bg-orange-500 rounded-lg p-3 w-12 h-12 mb-4">
-                  <Shield className="w-6 h-6 text-white" />
+              <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-lg p-4 border border-orange-100">
+                <div className="bg-orange-500 rounded-lg p-2 w-8 h-8 mb-3">
+                  <Shield className="w-4 h-4 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Privacy Protected</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  Your images are processed securely and deleted immediately after conversion. No data storage or sharing.
+                <h3 className="font-bold text-gray-900 mb-2 text-sm">Complete Privacy</h3>
+                <p className="text-gray-600 text-xs leading-relaxed">
+                  Files deleted automatically after conversion. Zero data retention policy.
                 </p>
               </div>
 
-              <div className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-xl p-6 border border-teal-100">
-                <div className="bg-teal-500 rounded-lg p-3 w-12 h-12 mb-4">
-                  <Zap className="w-6 h-6 text-white" />
+              <div className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-lg p-4 border border-teal-100">
+                <div className="bg-teal-500 rounded-lg p-2 w-8 h-8 mb-3">
+                  <Zap className="w-4 h-4 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Lightning Fast</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  Convert images to PDF in seconds. Batch processing capabilities for multiple files simultaneously.
+                <h3 className="font-bold text-gray-900 mb-2 text-sm">Batch Processing</h3>
+                <p className="text-gray-600 text-xs leading-relaxed">
+                  Convert unlimited images simultaneously with optimized performance.
                 </p>
               </div>
 
-              <div className="bg-gradient-to-br from-pink-50 to-rose-50 rounded-xl p-6 border border-pink-100">
-                <div className="bg-pink-500 rounded-lg p-3 w-12 h-12 mb-4">
-                  <Globe className="w-6 h-6 text-white" />
+              <div className="bg-gradient-to-br from-pink-50 to-rose-50 rounded-lg p-4 border border-pink-100">
+                <div className="bg-pink-500 rounded-lg p-2 w-8 h-8 mb-3">
+                  <Smartphone className="w-4 h-4 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Works Everywhere</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  Compatible with all devices and operating systems. No software installation required.
+                <h3 className="font-bold text-gray-900 mb-2 text-sm">Mobile Friendly</h3>
+                <p className="text-gray-600 text-xs leading-relaxed">
+                  Works perfectly on phones, tablets, and desktops without apps.
                 </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* SEO Content Section */}
-        <div className="py-16 bg-gray-50">
+        {/* Compact Use Cases Section */}
+        <div className="py-12 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">
-              How to Convert JPG to PDF Online: Step by Step Guide
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-6">
+              When You Need JPG to PDF Conversion
             </h2>
             
-            <div className="grid md:grid-cols-2 gap-8 mb-12">
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Quick Conversion Steps</h3>
-                <ol className="list-decimal list-inside space-y-3 text-gray-700">
-                  <li><strong>Upload images:</strong> Select JPG, PNG, or JPEG files from your device or drag them into the upload area.</li>
-                  <li><strong>Arrange order:</strong> Reorder images if combining multiple files into one PDF document.</li>
-                  <li><strong>Choose settings:</strong> Select page size, orientation, and quality preferences.</li>
-                  <li><strong>Convert & download:</strong> Click convert and download your PDF immediately.</li>
-                </ol>
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <div className="bg-white rounded-lg p-5 border">
+                <h3 className="text-lg font-bold text-gray-900 mb-3">Business Documents</h3>
+                <p className="text-gray-700 text-sm mb-3">
+                  Convert receipts, invoices, business cards, and contracts into searchable PDF documents for better organization and professional presentation.
+                </p>
+                <ul className="space-y-1 text-xs text-gray-600">
+                  <li>• Invoice and receipt management</li>
+                  <li>• Digital business card collections</li>
+                  <li>• Contract and agreement storage</li>
+                  <li>• Product catalog creation</li>
+                </ul>
               </div>
-              
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Best Practices</h3>
-                <ul className="list-disc list-inside space-y-3 text-gray-700">
-                  <li>Use high-resolution images for better PDF quality</li>
-                  <li>Compress large images before conversion to reduce file size</li>
-                  <li>Maintain consistent image orientations for professional appearance</li>
-                  <li>Consider page layout when combining multiple images</li>
+
+              <div className="bg-white rounded-lg p-5 border">
+                <h3 className="text-lg font-bold text-gray-900 mb-3">Personal Projects</h3>
+                <p className="text-gray-700 text-sm mb-3">
+                  Create photo albums, preserve memories, organize travel documents, and compile educational materials in portable PDF format.
+                </p>
+                <ul className="space-y-1 text-xs text-gray-600">
+                  <li>• Digital photo albums and scrapbooks</li>
+                  <li>• Travel document compilation</li>
+                  <li>• Educational worksheet collections</li>
+                  <li>• Recipe and tutorial compilation</li>
                 </ul>
               </div>
             </div>
 
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">
-              Why Convert Images to PDF Format?
-            </h3>
-            <p className="text-gray-700 mb-6">
-              PDF format offers numerous advantages for image storage and sharing. PDFs maintain image quality while providing universal compatibility across all devices and platforms. They're perfect for creating professional documents, preserving image collections, and ensuring consistent viewing experiences.
-            </p>
-
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <div className="bg-white rounded-xl p-6 border">
-                <h4 className="text-lg font-semibold text-gray-900 mb-3">Professional Benefits</h4>
-                <ul className="text-gray-700 space-y-2 text-sm">
-                  <li>• Universal compatibility across all devices</li>
-                  <li>• Maintains original image quality and resolution</li>
-                  <li>• Professional appearance for business documents</li>
-                  <li>• Easy sharing and printing capabilities</li>
-                </ul>
-              </div>
-              <div className="bg-white rounded-xl p-6 border">
-                <h4 className="text-lg font-semibold text-gray-900 mb-3">Practical Applications</h4>
-                <ul className="text-gray-700 space-y-2 text-sm">
-                  <li>• Photo albums and portfolios</li>
-                  <li>• Document digitization and archival</li>
-                  <li>• Presentation materials and reports</li>
-                  <li>• Invoice and receipt management</li>
-                </ul>
+            <div className="bg-blue-50 rounded-lg p-5 border border-blue-100">
+              <h3 className="text-lg font-bold text-gray-900 mb-3 text-center">
+                Converting Images to PDF: Best Practices
+              </h3>
+              <div className="grid md:grid-cols-3 gap-4 text-sm">
+                <div>
+                  <h4 className="font-medium text-gray-900 mb-2">Image Quality Tips</h4>
+                  <p className="text-gray-600 text-xs">Use high-resolution images for better PDF quality. Compress oversized photos before conversion to manage file sizes effectively.</p>
+                </div>
+                <div>
+                  <h4 className="font-medium text-gray-900 mb-2">Organization Strategy</h4>
+                  <p className="text-gray-600 text-xs">Name files logically before uploading. Group related images together and arrange them in the order you want them to appear.</p>
+                </div>
+                <div>
+                  <h4 className="font-medium text-gray-900 mb-2">Format Selection</h4>
+                  <p className="text-gray-600 text-xs">Choose page layouts that complement your images. Portrait for documents, landscape for wide photos, and custom for specific needs.</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* FAQ Section */}
-        <div className="py-16 bg-white">
+        {/* Interactive FAQ Section */}
+        <div className="py-12 bg-white">
           <div className="max-w-3xl mx-auto px-4">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-              Frequently Asked Questions
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-3">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-gray-600 text-sm">
+                Common questions about converting images to PDF format
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              {faqData.map((faq, index) => (
+                <div key={index} className="border border-gray-200 rounded-lg">
+                  <button
+                    className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-inset"
+                    onClick={() => toggleFaq(index)}
+                  >
+                    <span className="font-medium text-gray-900 text-sm pr-4">
+                      {faq.question}
+                    </span>
+                    <ChevronDown 
+                      className={`w-5 h-5 text-gray-500 transform transition-transform ${
+                        openFaq === index ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </button>
+                  {openFaq === index && (
+                    <div className="px-6 pb-4">
+                      <p className="text-gray-700 text-sm leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Trust signals */}
+            <div className="mt-8 text-center">
+              <div className="inline-flex items-center space-x-4 bg-gray-50 rounded-full px-6 py-3">
+                <div className="flex items-center space-x-1">
+                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                </div>
+                <span className="text-sm font-medium text-gray-700">4.8/5 from 18,765 users</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Simple Process Steps */}
+        <div className="py-12 bg-gray-50">
+          <div className="max-w-4xl mx-auto px-4">
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-8">
+              Convert Images to PDF in 3 Simple Steps
             </h2>
-
-            <div className="space-y-6">
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  What image formats can I convert to PDF?
-                </h3>
-                <p className="text-gray-700">
-                  Our converter supports all major image formats including JPG, JPEG, PNG, WebP, BMP, TIFF, and GIF. You can convert single images or combine multiple formats into one PDF.
+            
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="text-center">
+                <div className="bg-green-500 rounded-full w-10 h-10 flex items-center justify-center text-white font-bold mx-auto mb-3">
+                  1
+                </div>
+                <h3 className="font-bold text-gray-900 mb-2">Upload Images</h3>
+                <p className="text-gray-600 text-sm">
+                  Select JPG, PNG, or other image files. Upload multiple images to combine into one PDF.
                 </p>
               </div>
-
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  Can I combine multiple images into one PDF?
-                </h3>
-                <p className="text-gray-700">
-                  Yes, you can upload multiple images and combine them into a single PDF document. You can reorder the images and choose different layout options for optimal presentation.
+              
+              <div className="text-center">
+                <div className="bg-green-500 rounded-full w-10 h-10 flex items-center justify-center text-white font-bold mx-auto mb-3">
+                  2
+                </div>
+                <h3 className="font-bold text-gray-900 mb-2">Arrange & Configure</h3>
+                <p className="text-gray-600 text-sm">
+                  Reorder images, choose page size, and select layout preferences for your PDF.
                 </p>
               </div>
-
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  Will the image quality be reduced after conversion?
-                </h3>
-                <p className="text-gray-700">
-                  No, our conversion process maintains the original image quality and resolution. The PDF will contain your images in their original quality without any compression or degradation.
-                </p>
-              </div>
-
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  Is there a limit on file size or number of images?
-                </h3>
-                <p className="text-gray-700">
-                  Each image can be up to 50MB in size, and you can convert unlimited images. There's no daily limit or restriction on the number of conversions you can perform.
+              
+              <div className="text-center">
+                <div className="bg-green-500 rounded-full w-10 h-10 flex items-center justify-center text-white font-bold mx-auto mb-3">
+                  3
+                </div>
+                <h3 className="font-bold text-gray-900 mb-2">Download PDF</h3>
+                <p className="text-gray-600 text-sm">
+                  Convert instantly and download your professional PDF document immediately.
                 </p>
               </div>
             </div>

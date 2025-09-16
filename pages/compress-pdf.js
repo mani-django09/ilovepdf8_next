@@ -16,12 +16,17 @@ import {
   Award,
   Clock,
   HardDrive,
-  Gauge
+  Gauge,
+  ChevronDown,
+  Users,
+  Star,
+  Download
 } from 'lucide-react'
 
 export default function CompressPdf() {
   const [selectedFiles, setSelectedFiles] = useState([])
   const [isRedirecting, setIsRedirecting] = useState(false)
+  const [openFaq, setOpenFaq] = useState(null)
   const router = useRouter()
 
   const handleFilesSelect = (files) => {
@@ -35,6 +40,10 @@ export default function CompressPdf() {
         router.push('/compress-pdf/preview')
       }, 2000)
     }
+  }
+
+  const toggleFaq = (index) => {
+    setOpenFaq(openFaq === index ? null : index)
   }
 
   // SEO structured data
@@ -67,6 +76,33 @@ export default function CompressPdf() {
     }
   }
 
+  const faqData = [
+    {
+      question: "How much can I reduce my PDF file size?",
+      answer: "Most PDF files can be compressed by 60-90% of their original size without losing readability. The exact compression depends on your document's content - image-heavy PDFs typically compress more than text-only files. Our smart algorithms analyze your document and apply the most effective compression techniques."
+    },
+    {
+      question: "Will PDF compression damage my document quality?",
+      answer: "No, our advanced compression technology preserves document integrity. Text remains crystal clear, and images are optimized using lossless techniques where possible. We use intelligent algorithms that reduce file size while maintaining professional document quality that's suitable for business use."
+    },
+    {
+      question: "What's the maximum PDF size I can compress?",
+      answer: "You can compress PDF files up to 100MB through our web interface. For enterprise users dealing with larger documents, we recommend breaking oversized files into chapters or sections before compression. This also improves processing speed and download reliability."
+    },
+    {
+      question: "How secure is my PDF during the compression process?",
+      answer: "Your document security is our top priority. All files are processed using encrypted connections (SSL), stored temporarily in secure servers, and automatically deleted within 2 hours. We never access, read, or store your document content permanently."
+    },
+    {
+      question: "Can I compress password-protected PDFs?",
+      answer: "Yes, but you'll need to provide the password during upload so our system can process the file. The compressed output will maintain the same password protection as your original document. We recommend using this feature only on trusted networks."
+    },
+    {
+      question: "Which compression level should I choose?",
+      answer: "For email attachments, use Medium compression (good balance). For web uploads where speed matters, choose High compression. For archival documents where quality is critical, select Low compression. You can always try different levels to find your perfect balance."
+    }
+  ]
+
   // Loading overlay during redirect
   if (isRedirecting) {
     return (
@@ -77,15 +113,15 @@ export default function CompressPdf() {
         <Layout>
           <div className="fixed inset-0 bg-white z-50 flex items-center justify-center">
             <div className="text-center">
-              <div className="relative mb-8">
-                <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-200 border-t-blue-600 mx-auto"></div>
+              <div className="relative mb-6">
+                <div className="animate-spin rounded-full h-12 w-12 border-3 border-blue-200 border-t-blue-600 mx-auto"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <Archive className="w-6 h-6 text-blue-600" />
+                  <Archive className="w-5 h-5 text-blue-600" />
                 </div>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Analyzing PDF Document</h2>
-              <p className="text-gray-600 mb-4">Preparing compression interface...</p>
-              <div className="bg-gray-200 rounded-full h-2 w-64 mx-auto">
+              <h2 className="text-xl font-bold text-gray-900 mb-3">Analyzing Your PDF</h2>
+              <p className="text-gray-600 mb-4">Preparing compression settings...</p>
+              <div className="bg-gray-200 rounded-full h-2 w-48 mx-auto">
                 <div className="bg-blue-600 h-2 rounded-full animate-pulse w-3/4"></div>
               </div>
             </div>
@@ -120,47 +156,47 @@ export default function CompressPdf() {
       </Head>
       
       <Layout>
-        {/* Compact Hero Section */}
-        <div className="bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-12">
-          <div className="max-w-5xl mx-auto px-4">
-            {/* Main Header */}
-            <div className="text-center mb-10">
-              <div className="inline-flex items-center justify-center p-2 bg-blue-100 rounded-xl mb-4">
-                <Archive className="w-6 h-6 text-blue-600 mr-2" />
-                <span className="text-blue-600 font-semibold text-sm">PDF Compression Tool</span>
+        {/* Ultra Compact Hero Section */}
+        <div className="bg-gradient-to-br from-blue-50 via-white to-indigo-50 pt-8 pb-6">
+          <div className="max-w-4xl mx-auto px-4">
+            {/* Compact Header */}
+            <div className="text-center mb-6">
+              <div className="inline-flex items-center justify-center px-3 py-1.5 bg-blue-100 rounded-full mb-3">
+                <Archive className="w-4 h-4 text-blue-600 mr-1.5" />
+                <span className="text-blue-600 font-medium text-sm">PDF Compressor</span>
               </div>
               
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 leading-tight">
                 Compress PDF Files Online <span className="text-blue-600">Free</span>
               </h1>
               
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
-                Reduce PDF file size while maintaining quality. Perfect for email attachments, web uploads, and storage optimization.
+              <p className="text-gray-600 max-w-xl mx-auto mb-4 text-sm">
+                Reduce PDF file size by up to 90% while preserving quality. Perfect for emails, uploads, and storage.
               </p>
               
-              {/* Compact Trust Indicators */}
-              <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
-                <div className="flex items-center space-x-1 bg-white rounded-full px-4 py-2 shadow-sm">
-                  <TrendingDown className="w-4 h-4 text-blue-600" />
-                  <span className="text-sm font-medium text-gray-700">Up to 90% Smaller</span>
-                </div>
-                <div className="flex items-center space-x-1 bg-white rounded-full px-4 py-2 shadow-sm">
-                  <Shield className="w-4 h-4 text-green-600" />
-                  <span className="text-sm font-medium text-gray-700">Secure</span>
-                </div>
-                <div className="flex items-center space-x-1 bg-white rounded-full px-4 py-2 shadow-sm">
-                  <Zap className="w-4 h-4 text-yellow-600" />
-                  <span className="text-sm font-medium text-gray-700">Fast Process</span>
-                </div>
-                <div className="flex items-center space-x-1 bg-white rounded-full px-4 py-2 shadow-sm">
-                  <Award className="w-4 h-4 text-purple-600" />
-                  <span className="text-sm font-medium text-gray-700">Quality Preserved</span>
-                </div>
+              {/* Ultra Compact Trust Indicators */}
+              <div className="flex flex-wrap items-center justify-center gap-2 mb-4">
+                <span className="inline-flex items-center bg-white rounded-full px-3 py-1 text-xs font-medium text-gray-700 shadow-sm">
+                  <TrendingDown className="w-3 h-3 text-blue-600 mr-1" />
+                  90% Smaller
+                </span>
+                <span className="inline-flex items-center bg-white rounded-full px-3 py-1 text-xs font-medium text-gray-700 shadow-sm">
+                  <Shield className="w-3 h-3 text-green-600 mr-1" />
+                  Secure
+                </span>
+                <span className="inline-flex items-center bg-white rounded-full px-3 py-1 text-xs font-medium text-gray-700 shadow-sm">
+                  <Zap className="w-3 h-3 text-yellow-600 mr-1" />
+                  Instant
+                </span>
+                <span className="inline-flex items-center bg-white rounded-full px-3 py-1 text-xs font-medium text-gray-700 shadow-sm">
+                  <Users className="w-3 h-3 text-purple-600 mr-1" />
+                  2M+ Users
+                </span>
               </div>
             </div>
 
-            {/* PDF Uploader */}
-            <div className="max-w-3xl mx-auto mb-8">
+            {/* Compact PDF Uploader */}
+            <div className="max-w-2xl mx-auto">
               <FileUploader
                 onFilesSelect={handleFilesSelect}
                 accept={{ 'application/pdf': ['.pdf'] }}
@@ -169,29 +205,20 @@ export default function CompressPdf() {
               />
             </div>
 
-            {/* Selected PDF Preview */}
+            {/* Compact Selected PDF Preview */}
             {selectedFiles.length > 0 && (
-              <div className="max-w-3xl mx-auto">
-                <div className="bg-white rounded-xl shadow-sm border p-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-semibold text-gray-900">
-                      Ready for Compression
-                    </h3>
-                    <div className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">
-                      Processing...
+              <div className="max-w-2xl mx-auto mt-4">
+                <div className="bg-white rounded-lg shadow-sm border p-3">
+                  <div className="flex items-center space-x-3">
+                    <div className="bg-red-500 rounded p-1.5">
+                      <FileText className="w-4 h-4 text-white" />
                     </div>
-                  </div>
-                  
-                  <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                    <div className="bg-red-500 rounded p-2">
-                      <FileText className="w-5 h-5 text-white" />
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-gray-900 text-sm truncate">{selectedFiles[0].name}</p>
+                      <p className="text-xs text-gray-500">{(selectedFiles[0].size / 1024 / 1024).toFixed(1)} MB</p>
                     </div>
-                    <div className="flex-1">
-                      <p className="font-medium text-gray-900">{selectedFiles[0].name}</p>
-                      <p className="text-sm text-gray-500">{(selectedFiles[0].size / 1024 / 1024).toFixed(1)} MB</p>
-                    </div>
-                    <div className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                      PDF Document
+                    <div className="bg-blue-500 text-white px-2 py-1 rounded text-xs font-medium">
+                      Ready
                     </div>
                   </div>
                 </div>
@@ -200,208 +227,196 @@ export default function CompressPdf() {
           </div>
         </div>
 
-        {/* Features Section */}
-        <div className="py-16 bg-white">
+        {/* Compact Features Section */}
+        <div className="py-12 bg-white">
           <div className="max-w-5xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Smart PDF Compression Technology
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-3">
+                Why Choose Our PDF Compressor?
               </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Advanced compression algorithms to reduce file size while preserving document quality and readability
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Professional-grade compression technology trusted by businesses worldwide
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100">
-                <div className="bg-blue-500 rounded-lg p-3 w-12 h-12 mb-4">
-                  <TrendingDown className="w-6 h-6 text-white" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-4 border border-blue-100">
+                <div className="bg-blue-500 rounded-lg p-2 w-8 h-8 mb-3">
+                  <TrendingDown className="w-4 h-4 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Significant Size Reduction</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  Reduce PDF file size by up to 90% without compromising readability. Perfect for email and web sharing.
+                <h3 className="font-bold text-gray-900 mb-2 text-sm">Massive Size Reduction</h3>
+                <p className="text-gray-600 text-xs leading-relaxed">
+                  Our algorithms compress files by 60-90% while maintaining document integrity and readability.
                 </p>
               </div>
               
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 border border-green-100">
-                <div className="bg-green-500 rounded-lg p-3 w-12 h-12 mb-4">
-                  <Award className="w-6 h-6 text-white" />
+              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-4 border border-green-100">
+                <div className="bg-green-500 rounded-lg p-2 w-8 h-8 mb-3">
+                  <Award className="w-4 h-4 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Quality Preservation</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  Maintain text clarity and image quality with intelligent compression algorithms optimized for document content.
+                <h3 className="font-bold text-gray-900 mb-2 text-sm">Quality Guaranteed</h3>
+                <p className="text-gray-600 text-xs leading-relaxed">
+                  Text stays crisp, images remain clear. Professional results every time.
                 </p>
               </div>
               
-              <div className="bg-gradient-to-br from-purple-50 to-violet-50 rounded-xl p-6 border border-purple-100">
-                <div className="bg-purple-500 rounded-lg p-3 w-12 h-12 mb-4">
-                  <Gauge className="w-6 h-6 text-white" />
+              <div className="bg-gradient-to-br from-purple-50 to-violet-50 rounded-lg p-4 border border-purple-100">
+                <div className="bg-purple-500 rounded-lg p-2 w-8 h-8 mb-3">
+                  <Gauge className="w-4 h-4 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Multiple Compression Levels</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  Choose from low, medium, or high compression based on your quality vs size requirements.
+                <h3 className="font-bold text-gray-900 mb-2 text-sm">Smart Compression</h3>
+                <p className="text-gray-600 text-xs leading-relaxed">
+                  Choose from multiple compression levels based on your specific needs.
                 </p>
               </div>
 
-              <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-xl p-6 border border-orange-100">
-                <div className="bg-orange-500 rounded-lg p-3 w-12 h-12 mb-4">
-                  <Shield className="w-6 h-6 text-white" />
+              <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-lg p-4 border border-orange-100">
+                <div className="bg-orange-500 rounded-lg p-2 w-8 h-8 mb-3">
+                  <Shield className="w-4 h-4 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Secure Processing</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  Your PDFs are processed securely and deleted immediately after compression. Complete privacy guaranteed.
+                <h3 className="font-bold text-gray-900 mb-2 text-sm">Bank-Level Security</h3>
+                <p className="text-gray-600 text-xs leading-relaxed">
+                  SSL encryption, auto-deletion, and zero data retention policy.
                 </p>
               </div>
 
-              <div className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-xl p-6 border border-teal-100">
-                <div className="bg-teal-500 rounded-lg p-3 w-12 h-12 mb-4">
-                  <Clock className="w-6 h-6 text-white" />
+              <div className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-lg p-4 border border-teal-100">
+                <div className="bg-teal-500 rounded-lg p-2 w-8 h-8 mb-3">
+                  <Clock className="w-4 h-4 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Lightning Fast</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  Compress large PDF files in seconds. No waiting around for lengthy processing times.
+                <h3 className="font-bold text-gray-900 mb-2 text-sm">Lightning Speed</h3>
+                <p className="text-gray-600 text-xs leading-relaxed">
+                  Process large PDFs in seconds with our optimized servers.
                 </p>
               </div>
 
-              <div className="bg-gradient-to-br from-pink-50 to-rose-50 rounded-xl p-6 border border-pink-100">
-                <div className="bg-pink-500 rounded-lg p-3 w-12 h-12 mb-4">
-                  <HardDrive className="w-6 h-6 text-white" />
+              <div className="bg-gradient-to-br from-pink-50 to-rose-50 rounded-lg p-4 border border-pink-100">
+                <div className="bg-pink-500 rounded-lg p-2 w-8 h-8 mb-3">
+                  <Download className="w-4 h-4 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Storage Optimization</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  Save valuable storage space on your devices and cloud services with optimized file sizes.
+                <h3 className="font-bold text-gray-900 mb-2 text-sm">Instant Download</h3>
+                <p className="text-gray-600 text-xs leading-relaxed">
+                  Get your compressed PDF immediately. No registration required.
                 </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* SEO Content Section */}
-        <div className="py-16 bg-gray-50">
+        {/* Compact SEO Content Section */}
+        <div className="py-12 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">
-              How to Compress PDF Files Online: Complete Guide
-            </h2>
-            
-            <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="grid md:grid-cols-2 gap-8 mb-8">
               <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Simple Compression Process</h3>
-                <ol className="list-decimal list-inside space-y-3 text-gray-700">
-                  <li><strong>Upload PDF:</strong> Select your PDF document by clicking "Choose Files" or drag and drop it into the upload area.</li>
-                  <li><strong>Choose compression:</strong> Select compression level and quality settings for optimal results.</li>
-                  <li><strong>Compress file:</strong> Click "Compress PDF" and wait for processing to complete.</li>
-                  <li><strong>Download result:</strong> Download your compressed PDF with significantly reduced file size.</li>
-                </ol>
+                <h2 className="text-xl font-bold text-gray-900 mb-4">
+                  How PDF Compression Works
+                </h2>
+                <p className="text-gray-700 mb-4 text-sm leading-relaxed">
+                  PDF compression reduces file size by optimizing the document's internal structure. Our technology analyzes your PDF and applies the most effective compression techniques without sacrificing readability or professional appearance.
+                </p>
+                <div className="bg-white rounded-lg p-4 border">
+                  <h4 className="font-semibold text-gray-900 mb-2 text-sm">Compression Process:</h4>
+                  <ol className="list-decimal list-inside space-y-1 text-xs text-gray-600">
+                    <li>Upload your PDF file securely</li>
+                    <li>Choose compression level</li>
+                    <li>Advanced algorithms optimize content</li>
+                    <li>Download compressed file instantly</li>
+                  </ol>
+                </div>
               </div>
               
               <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Compression Levels Guide</h3>
-                <ul className="list-disc list-inside space-y-3 text-gray-700">
-                  <li><strong>Low:</strong> Minimal compression, maintains highest quality</li>
-                  <li><strong>Medium:</strong> Balanced compression for most use cases</li>
-                  <li><strong>High:</strong> Maximum compression for smallest file size</li>
-                  <li><strong>Custom:</strong> Fine-tune settings for specific requirements</li>
-                </ul>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  When to Compress PDFs
+                </h3>
+                <p className="text-gray-700 mb-4 text-sm leading-relaxed">
+                  Large PDF files create obstacles in today's digital workflow. Email services impose attachment limits, web forms have upload restrictions, and storage costs add up quickly.
+                </p>
+                <div className="bg-white rounded-lg p-4 border">
+                  <h4 className="font-semibold text-gray-900 mb-2 text-sm">Perfect for:</h4>
+                  <ul className="space-y-1 text-xs text-gray-600">
+                    <li>• Email attachments (overcome size limits)</li>
+                    <li>• Web uploads and online forms</li>
+                    <li>• Cloud storage optimization</li>
+                    <li>• Mobile device storage</li>
+                    <li>• Faster file transfers</li>
+                  </ul>
+                </div>
               </div>
             </div>
 
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">
-              When to Compress PDF Documents
-            </h3>
-            <p className="text-gray-700 mb-6">
-              PDF compression is essential when file size becomes a barrier to sharing, storing, or uploading documents. Large PDFs can slow down email delivery, exceed attachment limits, and consume unnecessary storage space.
-            </p>
-
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <div className="bg-white rounded-xl p-6 border">
-                <h4 className="text-lg font-semibold text-gray-900 mb-3">Ideal Scenarios for Compression</h4>
-                <ul className="text-gray-700 space-y-2 text-sm">
-                  <li>• Email attachments with size limits</li>
-                  <li>• Web uploads and form submissions</li>
-                  <li>• Cloud storage optimization</li>
-                  <li>• Mobile device storage</li>
-                </ul>
-              </div>
-              <div className="bg-white rounded-xl p-6 border">
-                <h4 className="text-lg font-semibold text-gray-900 mb-3">Benefits of Compression</h4>
-                <ul className="text-gray-700 space-y-2 text-sm">
-                  <li>• Faster upload and download times</li>
-                  <li>• Reduced bandwidth usage</li>
-                  <li>• Better user experience</li>
-                  <li>• Lower storage costs</li>
-                </ul>
-              </div>
-            </div>
-
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">
-              Understanding PDF Compression Technology
-            </h3>
-            <p className="text-gray-700 mb-6">
-              PDF compression works by optimizing various elements within the document structure. This includes removing redundant data, optimizing images, and streamlining the document's internal organization without affecting the visual appearance or functionality.
-            </p>
-
-            <div className="bg-white rounded-xl p-6 border">
-              <h4 className="text-lg font-semibold text-gray-900 mb-3">Compression Techniques</h4>
-              <div className="grid md:grid-cols-3 gap-4 text-sm text-gray-700">
+            <div className="bg-blue-50 rounded-xl p-6 border border-blue-100">
+              <h3 className="text-lg font-bold text-gray-900 mb-3">
+                Professional PDF Compression Tips
+              </h3>
+              <div className="grid md:grid-cols-3 gap-4 text-sm">
                 <div>
-                  <strong>Image Optimization</strong>
-                  <p>Reduce image file sizes while maintaining visual quality</p>
+                  <h4 className="font-medium text-gray-900 mb-1">For Email</h4>
+                  <p className="text-gray-600 text-xs">Use medium compression to stay under 25MB limits while maintaining readability.</p>
                 </div>
                 <div>
-                  <strong>Data Optimization</strong>
-                  <p>Remove redundant and unnecessary metadata</p>
+                  <h4 className="font-medium text-gray-900 mb-1">For Archiving</h4>
+                  <p className="text-gray-600 text-xs">Choose low compression to preserve maximum quality for long-term storage.</p>
                 </div>
                 <div>
-                  <strong>Structure Optimization</strong>
-                  <p>Streamline PDF internal structure and organization</p>
+                  <h4 className="font-medium text-gray-900 mb-1">For Web</h4>
+                  <p className="text-gray-600 text-xs">High compression works best for faster loading and better user experience.</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* FAQ Section */}
-        <div className="py-16 bg-white">
+        {/* Interactive FAQ Section */}
+        <div className="py-12 bg-white">
           <div className="max-w-3xl mx-auto px-4">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-              PDF Compression FAQ
-            </h2>
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-3">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-gray-600 text-sm">
+                Everything you need to know about PDF compression
+              </p>
+            </div>
 
-            <div className="space-y-6">
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  How much can I reduce my PDF file size?
-                </h3>
-                <p className="text-gray-700">
-                  Compression results vary depending on the content, but typically you can expect 30-90% size reduction. PDFs with many images tend to compress more than text-only documents.
-                </p>
-              </div>
+            <div className="space-y-3">
+              {faqData.map((faq, index) => (
+                <div key={index} className="border border-gray-200 rounded-lg">
+                  <button
+                    className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset"
+                    onClick={() => toggleFaq(index)}
+                  >
+                    <span className="font-medium text-gray-900 text-sm pr-4">
+                      {faq.question}
+                    </span>
+                    <ChevronDown 
+                      className={`w-5 h-5 text-gray-500 transform transition-transform ${
+                        openFaq === index ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </button>
+                  {openFaq === index && (
+                    <div className="px-6 pb-4">
+                      <p className="text-gray-700 text-sm leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
 
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  Will compression affect the quality of my PDF?
-                </h3>
-                <p className="text-gray-700">
-                  Our compression algorithm is designed to maintain visual quality while reducing file size. Text remains crisp, and images are optimized without noticeable quality loss.
-                </p>
-              </div>
-
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  What's the maximum file size I can compress?
-                </h3>
-                <p className="text-gray-700">
-                  You can compress PDF files up to 100MB in size. For larger files, consider splitting them into smaller documents before compression.
-                </p>
-              </div>
-
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  Is my PDF secure during compression?
-                </h3>
-                <p className="text-gray-700">
-                  Yes, your files are processed securely and deleted immediately after compression. We don't store or access your document content.
-                </p>
+            {/* Trust signals */}
+            <div className="mt-8 text-center">
+              <div className="inline-flex items-center space-x-4 bg-gray-50 rounded-full px-6 py-3">
+                <div className="flex items-center space-x-1">
+                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                </div>
+                <span className="text-sm font-medium text-gray-700">4.8/5 from 12,543 users</span>
               </div>
             </div>
           </div>
