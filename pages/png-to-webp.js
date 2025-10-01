@@ -77,7 +77,7 @@ export default function PngToWebp() {
     "@type": "WebApplication",
     "name": "Free PNG to WebP Converter - Convert PNG Images to WebP Online",
     "description": "Convert PNG images to WebP format online for free. Reduce file sizes by up to 50% while maintaining quality. No software download required.",
-    "url": "https://yoursite.com/png-to-webp",
+    "url": "https://ilovepdf8.net/png-to-webp",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Any",
     "browserRequirements": "HTML5",
@@ -139,13 +139,13 @@ export default function PngToWebp() {
         <meta property="og:title" content="Free PNG to WebP Converter - Optimize Images Online" />
         <meta property="og:description" content="Convert PNG to WebP format for free. Reduce file sizes significantly while preserving quality." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://yoursite.com/png-to-webp" />
+        <meta property="og:url" content="https://ilovepdf8.net/png-to-webp" />
         
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Free PNG to WebP Converter - Optimize Your Images" />
         <meta name="twitter:description" content="Convert PNG to WebP online for free. Significant file size reduction with quality preservation." />
         
-        <link rel="canonical" href="https://yoursite.com/png-to-webp" />
+        <link rel="canonical" href="https://ilovepdf8.net/png-to-webp" />
         
         <script
           type="application/ld+json"

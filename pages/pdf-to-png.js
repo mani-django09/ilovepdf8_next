@@ -105,7 +105,7 @@ export default function PdfToPng() {
     "@type": "WebApplication",
     "name": "Free PDF to PNG Converter - Extract PDF Pages as High Quality PNG Images",
     "description": "Convert PDF documents to PNG images online free. Extract PDF pages as high-quality PNG files with transparency support. Best PDF to PNG converter tool.",
-    "url": "https://yoursite.com/pdf-to-png",
+    "url": "https://ilovepdf8.net/pdf-to-png",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Any",
     "browserRequirements": "HTML5",
@@ -162,13 +162,13 @@ export default function PdfToPng() {
         <meta property="og:title" content="Free PDF to PNG Converter - Extract PDF Pages as PNG Images" />
         <meta property="og:description" content="Convert PDF documents to high-quality PNG images for free. Perfect transparency preservation and custom quality settings." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://yoursite.com/pdf-to-png" />
+        <meta property="og:url" content="https://ilovepdf8.net/pdf-to-png" />
         
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Free PDF to PNG Converter - Extract PDF Pages as PNG Images" />
         <meta name="twitter:description" content="Convert PDF to PNG online for free. High-quality extraction with transparency support." />
         
-        <link rel="canonical" href="https://yoursite.com/pdf-to-png" />
+        <link rel="canonical" href="https://ilovepdf8.net/pdf-to-png" />
         
         <script
           type="application/ld+json"

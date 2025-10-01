@@ -4,10 +4,11 @@ import ErrorBoundary from '../components/ErrorBoundary'
 import { MergeProvider } from '../contexts/MergeContext'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import Script from 'next/script'
 
 const trackPageView = (url) => {
   if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('config', process.env.NEXT_PUBLIC_GA_ID, {
+    window.gtag('config', 'G-28SMXQ6JDC', {
       page_path: url,
     })
   }
@@ -41,10 +42,27 @@ export default function App({ Component, pageProps }) {
   }, [])
 
   return (
-    <ErrorBoundary>
-      <MergeProvider>
-        <Component {...pageProps} />
-      </MergeProvider>
-    </ErrorBoundary>
+    <>
+      {/* Google Analytics */}
+      <Script 
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-28SMXQ6JDC"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-28SMXQ6JDC');
+        `}
+      </Script>
+
+      <ErrorBoundary>
+        <MergeProvider>
+          <Component {...pageProps} />
+        </MergeProvider>
+      </ErrorBoundary>
+    </>
   )
 }

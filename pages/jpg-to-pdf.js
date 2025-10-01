@@ -85,7 +85,7 @@ export default function JpgToPdf() {
     "@type": "WebApplication",
     "name": "Free JPG to PDF Converter - Convert Images to PDF Online",
     "description": "Convert JPG, PNG, JPEG images to PDF online for free. Combine multiple images into one PDF document. No software download required.",
-    "url": "https://yoursite.com/jpg-to-pdf",
+    "url": "https://ilovepdf8.net/jpg-to-pdf",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Any",
     "browserRequirements": "HTML5",
@@ -138,9 +138,9 @@ export default function JpgToPdf() {
         <meta property="og:title" content="Free JPG to PDF Converter - Convert Images to PDF Online" />
         <meta property="og:description" content="Convert images to PDF for free. Support JPG, PNG, JPEG formats with professional results." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://yoursite.com/jpg-to-pdf" />
+        <meta property="og:url" content="https://ilovepdf8.net/jpg-to-pdf" />
         
-        <link rel="canonical" href="https://yoursite.com/jpg-to-pdf" />
+        <link rel="canonical" href="https://ilovepdf8.net/jpg-to-pdf" />
         
         <script
           type="application/ld+json"

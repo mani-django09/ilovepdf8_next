@@ -75,7 +75,7 @@ export default function WebpToPng() {
     "@type": "WebApplication",
     "name": "Free WebP to PNG Converter - Convert WebP Images to PNG Online",
     "description": "Convert WebP images to PNG format online for free. Maintain transparency and lossless quality. Perfect for compatibility across all browsers and platforms.",
-    "url": "https://yoursite.com/webp-to-png"
+    "url": "https://ilovepdf8.net/webp-to-png"
   }
 
   // Loading overlay
@@ -116,9 +116,9 @@ export default function WebpToPng() {
         <meta property="og:title" content="Free WebP to PNG Converter - Universal Browser Compatibility" />
         <meta property="og:description" content="Convert WebP images to PNG format for universal compatibility across all browsers and platforms." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://yoursite.com/webp-to-png" />
+        <meta property="og:url" content="https://ilovepdf8.net/webp-to-png" />
         
-        <link rel="canonical" href="https://yoursite.com/webp-to-png" />
+        <link rel="canonical" href="https://ilovepdf8.net/webp-to-png" />
         
         <script
           type="application/ld+json"

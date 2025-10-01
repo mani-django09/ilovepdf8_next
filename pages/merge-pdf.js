@@ -56,7 +56,7 @@ export default function MergePdf() {
     "@type": "WebApplication",
     "name": "Free PDF Merger Tool - Combine Multiple PDFs Online",
     "description": "Merge PDF files online for free. Combine multiple PDF documents into one file quickly and securely. No software download required.",
-    "url": "https://yoursite.com/merge-pdf",
+    "url": "https://ilovepdf8.net/merge-pdf",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Any",
     "browserRequirements": "HTML5",
@@ -144,8 +144,8 @@ export default function MergePdf() {
         <meta property="og:title" content="Free PDF Merger - Combine Multiple PDF Files Online" />
         <meta property="og:description" content="Professional PDF merger tool. Combine unlimited PDF files for free with bank-level security. No software needed." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://yoursite.com/merge-pdf" />
-        <meta property="og:image" content="https://yoursite.com/images/pdf-merger-tool.jpg" />
+        <meta property="og:url" content="https://ilovepdf8.net/merge-pdf" />
+        <meta property="og:image" content="https://ilovepdf8.net/images/pdf-merger-tool.jpg" />
         
         {/* Twitter Card tags */}
         <meta name="twitter:card" content="summary_large_image" />
@@ -160,8 +160,8 @@ export default function MergePdf() {
         <meta name="language" content="English" />
         <meta name="revisit-after" content="7 days" />
         
-        <link rel="canonical" href="https://yoursite.com/merge-pdf" />
-        <link rel="alternate" hreflang="en" href="https://yoursite.com/merge-pdf" />
+        <link rel="canonical" href="https://ilovepdf8.net/merge-pdf" />
+        <link rel="alternate" hreflang="en" href="https://ilovepdf8.net/merge-pdf" />
         
         <script
           type="application/ld+json"

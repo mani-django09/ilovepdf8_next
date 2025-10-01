@@ -137,9 +137,9 @@ export default function PngToPdf() {
         <meta property="og:title" content="Free PNG to PDF Converter - Create Professional PDFs from Images" />
         <meta property="og:description" content="Convert PNG images to PDF documents for free. Combine multiple files with custom layouts and page sizes." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://yoursite.com/png-to-pdf" />
+        <meta property="og:url" content="https://ilovepdf8.net/png-to-pdf" />
         
-        <link rel="canonical" href="https://yoursite.com/png-to-pdf" />
+        <link rel="canonical" href="https://ilovepdf8.net/png-to-pdf" />
       </Head>
       
       <Layout>

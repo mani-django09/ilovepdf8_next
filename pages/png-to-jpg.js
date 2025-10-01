@@ -84,7 +84,7 @@ export default function PdfToWord() {
     "@type": "WebApplication",
     "name": "Free PDF to Word Converter - Convert PDF to Editable Word Documents",
     "description": "Convert PDF files to editable Word documents online for free. Extract text and formatting from PDF to DOC/DOCX format. No software required.",
-    "url": "https://yoursite.com/pdf-to-word",
+    "url": "https://ilovepdf8.net/pdf-to-word",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Any",
     "browserRequirements": "HTML5",
@@ -137,9 +137,9 @@ export default function PdfToWord() {
         <meta property="og:title" content="Free PDF to Word Converter - Convert PDF to Editable Documents" />
         <meta property="og:description" content="Convert PDF files to editable Word documents for free. Extract text and formatting instantly." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://yoursite.com/pdf-to-word" />
+        <meta property="og:url" content="https://ilovepdf8.net/pdf-to-word" />
         
-        <link rel="canonical" href="https://yoursite.com/pdf-to-word" />
+        <link rel="canonical" href="https://ilovepdf8.net/pdf-to-word" />
         
         <script
           type="application/ld+json"

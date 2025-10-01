@@ -52,7 +52,7 @@ export default function CompressPdf() {
     "@type": "WebApplication",
     "name": "Free PDF Compressor - Reduce PDF File Size Online",
     "description": "Compress PDF files online for free. Reduce PDF file size while maintaining quality. Fast, secure, and easy to use PDF compression tool.",
-    "url": "https://yoursite.com/compress-pdf",
+    "url": "https://ilovepdf8.net/compress-pdf",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Any",
     "browserRequirements": "HTML5",
@@ -141,13 +141,13 @@ export default function CompressPdf() {
         <meta property="og:title" content="Free PDF Compressor - Reduce PDF File Size Online" />
         <meta property="og:description" content="Compress PDF files for free. Reduce file size while maintaining quality. Fast and secure online PDF compression." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://yoursite.com/compress-pdf" />
+        <meta property="og:url" content="https://ilovepdf8.net/compress-pdf" />
         
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Free PDF Compressor - Reduce File Size Online" />
         <meta name="twitter:description" content="Compress PDF files online for free. Reduce size while maintaining quality." />
         
-        <link rel="canonical" href="https://yoursite.com/compress-pdf" />
+        <link rel="canonical" href="https://ilovepdf8.net/compress-pdf" />
         
         <script
           type="application/ld+json"

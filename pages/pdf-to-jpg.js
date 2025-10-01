@@ -86,7 +86,7 @@ export default function PdfToJpg() {
     "@type": "WebApplication",
     "name": "PDF to JPG Converter - Extract Images from PDF Online",
     "description": "Convert PDF pages to high-quality JPG images instantly. Free online tool with custom resolution settings and batch processing capabilities.",
-    "url": "https://yoursite.com/pdf-to-jpg",
+    "url": "https://ilovepdf8.net/pdf-to-jpg",
     "applicationCategory": "UtilityApplication",
     "operatingSystem": "Any",
     "browserRequirements": "HTML5",
@@ -140,7 +140,7 @@ export default function PdfToJpg() {
         <meta property="og:description" content="Free online tool to convert PDF pages to high-quality JPG images. Custom resolution settings and instant download." />
         <meta property="og:type" content="website" />
         
-        <link rel="canonical" href="https://yoursite.com/pdf-to-jpg" />
+        <link rel="canonical" href="https://ilovepdf8.net/pdf-to-jpg" />
         
         <script
           type="application/ld+json"

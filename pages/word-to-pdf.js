@@ -86,7 +86,7 @@ export default function WordToPdf() {
     "@type": "WebApplication",
     "name": "Free Word to PDF Converter - Convert DOC/DOCX to PDF Online",
     "description": "Convert Word documents to PDF online for free. Transform DOC and DOCX files to PDF format while preserving formatting. No software required.",
-    "url": "https://yoursite.com/word-to-pdf",
+    "url": "https://ilovepdf8.net/word-to-pdf",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Any",
     "browserRequirements": "HTML5",
@@ -139,9 +139,9 @@ export default function WordToPdf() {
         <meta property="og:title" content="Free Word to PDF Converter - Convert DOC/DOCX Online" />
         <meta property="og:description" content="Convert Word documents to PDF for free. Preserve formatting and create professional PDFs instantly." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://yoursite.com/word-to-pdf" />
+        <meta property="og:url" content="https://ilovepdf8.net/word-to-pdf" />
         
-        <link rel="canonical" href="https://yoursite.com/word-to-pdf" />
+        <link rel="canonical" href="https://ilovepdf8.net/word-to-pdf" />
         
         <script
           type="application/ld+json"
