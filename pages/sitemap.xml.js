@@ -1,6 +1,6 @@
 // pages/sitemap.xml.js
 function generateSiteMap() {
-  const baseUrl = 'https://yourwebsite.com'; // Replace with your actual domain
+  const baseUrl = 'https://ilovepdf8.net'; 
   
   const staticPages = [
     '',
